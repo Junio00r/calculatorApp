@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Calculator's Resources -->
+    <string name="app_name">Calculadora</string>
+    <string name="botton_copy" />
+    <string name="view_history" />
+    <string name="no" />
+    <string name="pre_resultado" />
+    <string name="expressao" />
+
+    <!-- Standart Calculator Buttons -->
+    <string name="deletar_caractere">⌫</string>
+    <string name="deletar_expressao">AC</string>
+    <string name="abre_parentese">(</string>
+    <string name="fecha_parentese">)</string>
+    <string name="zero">0</string>
+    <string name="um">1</string>
+    <string name="dois">2</string>
+    <string name="tres">3</string>
+    <string name="quatro">4</string>
+    <string name="cinco">5</string>
+    <string name="seis">6</string>
+    <string name="sete">7</string>
+    <string name="oito">8</string>
+    <string name="nove">9</string>
+    <string name="soma">+</string>
+    <string name="subtracao">-</string>
+    <string name="divisao">÷</string>
+    <string name="multiplicacao">×</string>
+    <string name="porcentagem">%</string>
+    <string name="separador">,</string>
+    <string name="resultado">=</string>
+    <string name="copy">copy</string>
+
+</resources>

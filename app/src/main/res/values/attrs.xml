@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--  EditText  -->
+    <declare-styleable name="EditTextView">
+
+        <attr name="edit_text_view_quantity_lines" format="integer" />
+
+    </declare-styleable>
+
+
+    <!--  Button  -->
+    <declare-styleable name="BackgroundButtonView">
+
+        <attr name="background_button_elevation" format="dimension" />
+
+    </declare-styleable>
+
+</resources>
