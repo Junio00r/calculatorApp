@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/top_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    app:behavior_peekHeight="278dp"
+    app:layout_behavior="com.devmobile.android.calculadora.model.TopSheetBehavior">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view_historic"
+        android:layout_width="match_parent"
+        android:layout_height="493dp"
+        android:background="@color/white"
+        android:scrollbars="vertical" />
+
+    <com.devmobile.android.calculadora.model.EditTextView
+        android:id="@+id/editTextViewID"
+        android:layout_width="match_parent"
+        android:layout_height="143dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="textEnd"
+        android:allowUndo="true"
+        android:background="@color/white"
+        android:breakStrategy="balanced"
+        android:firstBaselineToTopHeight="10dp"
+        android:hint="@null"
+        android:importantForAccessibility="no"
+        android:importantForAutofill="no"
+        android:inputType="text|textNoSuggestions|numberDecimal"
+        android:lines="1"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:text="@null"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/textResultExpression"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/white"
+        android:lines="1"
+        android:maxWidth="500dp"
+        android:text="="
+        android:textAlignment="textEnd"
+        android:textColor="@color/gray_background"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/copyResult"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="-50dp"
+        android:layout_marginStart="10dp"
+        android:clickable="true"
+        android:contentDescription="@string/copy"
+        android:onClick="copyCalculate"
+        app:srcCompat="?attr/actionModeCopyDrawable" />
+
+    <Button
+        android:id="@+id/buttonNestedScroll"
+        android:layout_width="40dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:importantForAccessibility="no"  />
+
+</LinearLayout>

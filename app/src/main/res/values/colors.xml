@@ -5,5 +5,6 @@
     <color name="gray">#373737</color>
     <color name="gray_background">#BDBDBD</color>
     <color name="orange">#F57C00</color>
-    <color name="pink_white">#FFFEFAFD</color>
+    <color name="pink_white">#23A829</color>
+    <color name="green_twa">#C7FFCA</color>
 </resources>

@@ -10,17 +10,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.devmobile.android.calculadora.model.EditTextView;
+import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
-
-import java.util.Hashtable;
+import com.google.android.material.appbar.AppBarLayout;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     public int cursorPosition = 0;
     private RecyclerView recyclerView;
+    private View topSheetBehavior;
+    private LinearLayout bottom_sheet;
+    private AppBarLayout appBarLayout;
+    private LinearLayout content_view;
     private List<OperationCalculated> operationsCalculated = new LinkedList<>();
 
     @Override
@@ -38,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         idEditTextView = findViewById(R.id.editTextViewID);
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view_historic);
-        this.setResultTextView(getTextViewId());
-
+        recyclerView = findViewById(R.id.recycle_view_historic);
+        content_view = findViewById(R.id.conent_main);
+        topSheetBehavior = findViewById(R.id.top_sheet);
+        TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
 
     }
 
