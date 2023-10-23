@@ -25,11 +25,22 @@
     <string name="nove">9</string>
     <string name="soma">+</string>
     <string name="subtracao">-</string>
-    <string name="divisao">÷</string>
+    <string name="division">÷</string>
     <string name="multiplicacao">×</string>
     <string name="porcentagem">%</string>
     <string name="separador">,</string>
     <string name="resultado">=</string>
     <string name="copy">copy</string>
+
+    <!-- Expensive Buttons   -->
+    <string name="euler">e</string>
+    <string name="fatorial">x!</string>
+    <string name="raizQuadrada">√</string>
+    <string name="pi">π</string>
+    <string name="log">log</string>
+    <string name="sen">sen</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="expoente">^</string>
 
 </resources>

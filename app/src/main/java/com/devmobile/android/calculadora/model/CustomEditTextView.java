@@ -1,65 +1,42 @@
 package com.devmobile.android.calculadora.model;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.location.GnssAntennaInfo;
 import android.text.Editable;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.ActionMode;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.devmobile.android.calculadora.R;
 
-import org.w3c.dom.Text;
 
-import java.util.Objects;
-
-
-public class EditTextView extends androidx.appcompat.widget.AppCompatEditText {
+public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
     private final int distanceFirstBaseLineToTopHeight = 10;
     private final int quantityLinesEditText = 2;
     private final boolean isHasLine = false;
     private final float sizeText = (float) 40.5;
-    private EditTextView idEditTextView;
+    private CustomEditTextView idEditTextView;
     public TextView textView;
     private String expressionCalculate = "";
 
-    public EditTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CustomEditTextView(Context context) {
+        super(context);
 
         idEditTextView = this.findViewById(R.id.editTextViewID);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextView);
+        TypedArray typedArray = context.obtainStyledAttributes(R.styleable.EditTextView);
 
         init();
     }
 
-    public EditTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public CustomEditTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         idEditTextView = this.findViewById(R.id.editTextViewID);
-        TypedArray typedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.EditTextView, defStyleAttr, 0
-        );
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextView);
 
         init();
     }

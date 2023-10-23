@@ -8,23 +8,34 @@
     </style>
 
     <!--  Default Style  -->
-    <style name="ConfigurationDeafultButton">
+    <style name="ConfigurationDefaultButton">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:minWidth">88dp</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:minHeight">73dp</item>
         <item name="android:outlineProvider">none</item>
-        <item name="android:background">@drawable/ripple_effect_animation</item>
+        <item name="android:background">@drawable/button_ripple_effect_animation</item>
     </style>
 
     <!--  Bottons Types  -->
-    <style name="NumberButtonStyle" parent="ConfigurationDeafultButton">
+    <style name="NumberButtonStyle" parent="ConfigurationDefaultButton">
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="EspecialButtonStyle" parent="ConfigurationDeafultButton">
-        <item name="android:textColor">@color/orange</item>
+    <style name="EspecialButtonStyle" parent="ConfigurationDefaultButton">
+        <item name="android:textColor">@color/brown</item>
+    </style>
+
+    <style name="ViewPagerButtonsDefault" parent="NumberButtonStyle">
+        <item name="android:minWidth">68dp</item>
+        <item name="android:minHeight">59dp</item>
+    </style>
+
+    <style name="ViewPagerButtonsEspecial" parent="EspecialButtonStyle">
+        <item name="android:minWidth">68dp</item>
+        <item name="android:minHeight">59dp</item>
     </style>
 
     <style name="Theme.Calculadora" parent="Base.Theme.Calculadora" />

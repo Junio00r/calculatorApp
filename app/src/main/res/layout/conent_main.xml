@@ -1,211 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/conent_main"
-    android:layout_width="match_parent"
+    android:layout_width="786dp"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:layout_gravity="bottom"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    android:background="@color/primary"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_marginBottom="20dp"
+        android:background="@color/primary"
         android:maxHeight="700dp"
         app:columnCount="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:rowCount="6">
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button1"
+        <ImageButton
+            android:id="@+id/buttonOpenParenthesis"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/abre_parentese"
-            app:layout_column="0"
+            android:contentDescription="@string/abre_parentese"
+            android:importantForAccessibility="no"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_open_parenthesis_1024px"
+            app:layout_column="1"
             app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button2"
+            android:id="@+id/buttonSeven"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/sete"
             android:text="@string/sete"
             app:layout_column="0"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button3"
+            android:id="@+id/buttonFour"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/quatro"
             android:text="@string/quatro"
             app:layout_column="0"
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button4"
+            android:id="@+id/buttonOne"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/um"
             android:text="@string/um"
             app:layout_column="0"
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button5"
+            android:id="@+id/buttonClearAll"
             style="@style/EspecialButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="expressionClear"
             android:text="@string/deletar_expressao"
+            android:textSize="32sp"
             app:layout_column="0"
             app:layout_row="4" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button6"
+        <ImageButton
+            android:id="@+id/buttonCloseParenthesis"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/fecha_parentese"
-            app:layout_column="1"
+            android:contentDescription="@string/fecha_parentese"
+            android:importantForAccessibility="no"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_close_parenthesis_1024px"
+            app:layout_column="2"
             app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button7"
+            android:id="@+id/buttonEight"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/oito"
             android:text="@string/oito"
             app:layout_column="1"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button8"
+            android:id="@+id/buttonFive"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/cinco"
             android:text="@string/cinco"
             app:layout_column="1"
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button9"
+            android:id="@+id/buttonTwo"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/dois"
             android:text="@string/dois"
             app:layout_column="1"
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button10"
+            android:id="@+id/buttonZero"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/zero"
             android:text="@string/zero"
             app:layout_column="1"
             app:layout_row="4" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button11"
+        <ImageButton
+            android:id="@+id/buttonPercent"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/porcentagem"
+            android:contentDescription="@string/porcentagem"
+            android:importantForAccessibility="no"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_percent_1024px"
             app:layout_column="0"
-            app:layout_row="5" />
+            app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button12"
+            android:id="@+id/buttonNine"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/nove"
             android:text="@string/nove"
             app:layout_column="2"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button13"
+            android:id="@+id/buttonSix"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/seis"
             android:text="@string/seis"
             app:layout_column="2"
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button14"
+            android:id="@+id/buttonThree"
             style="@style/NumberButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:clickable="true"
+            android:contentDescription="@string/tres"
             android:text="@string/tres"
             app:layout_column="2"
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button15"
+            android:id="@+id/buttonSeparator"
             style="@style/EspecialButtonStyle"
             android:layout_margin="5dp"
-            android:onClick="onClick"
+            android:contentDescription="@string/separador"
             android:text="@string/separador"
             app:layout_column="2"
             app:layout_row="4" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button16"
+        <ImageButton
+            android:id="@+id/buttonBackSpace"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
+            android:importantForAccessibility="no"
             android:onClick="excludeCharacter"
-            android:text="@string/deletar_caractere"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_backspace_1024px"
             app:layout_column="3"
             app:layout_row="0" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button17"
+        <ImageButton
+            android:id="@+id/buttonDivision"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/divisao"
-            app:layout_column="2"
-            app:layout_row="0" />
-
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button18"
-            style="@style/EspecialButtonStyle"
-            android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/multiplicacao"
+            android:contentDescription="@string/division"
+            android:importantForAccessibility="no"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_division_512px"
             app:layout_column="3"
             app:layout_row="1" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button19"
+        <ImageButton
+            android:id="@+id/buttonMultiplication"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/subtracao"
+            android:contentDescription="@string/multiplicacao"
+            android:importantForAccessibility="no"
+            android:padding="22dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_mulitply_512px"
             app:layout_column="3"
             app:layout_row="2" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button20"
+        <ImageButton
+            android:id="@+id/buttonSubtraction"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="onClick"
-            android:text="@string/soma"
+            android:contentDescription="@string/subtracao"
+            android:importantForAccessibility="no"
+            android:paddingHorizontal="28dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_subtraction_512px"
             app:layout_column="3"
             app:layout_row="3" />
 
-        <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button21"
+        <ImageButton
+            android:id="@+id/buttonSum"
             style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
             android:layout_margin="5dp"
-            android:onClick="equalsResult"
-            android:text="@string/resultado"
+            android:contentDescription="@string/soma"
+            android:importantForAccessibility="no"
+            android:padding="22dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_sum_1024px"
             app:layout_column="3"
             app:layout_row="4" />
+
+        <ImageButton
+            android:id="@+id/buttonEquals"
+            style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:onClick="equalsResult"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_equals_1024px"
+            app:layout_column="3"
+            app:layout_row="5" />
+
+        <ImageButton
+            android:id="@+id/buttonMenu"
+            style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_menu_1024px"
+            app:layout_column="0"
+            app:layout_row="5" />
+
+        <ImageButton
+            android:id="@+id/buttonUp"
+            style="@style/ViewPagerButtonsEspecial"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:onClick="equalsResult"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_up"
+            app:layout_column="1"
+            app:layout_row="5" />
+
+        <ImageButton
+            android:id="@+id/buttonDown"
+            style="@style/ViewPagerButtonsEspecial"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:onClick="equalsResult"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_down"
+            app:layout_column="2"
+            app:layout_row="5" />
 
     </androidx.gridlayout.widget.GridLayout>
 

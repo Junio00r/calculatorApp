@@ -7,46 +7,116 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.devmobile.android.calculadora.model.EditTextView;
+
+import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.google.android.material.appbar.AppBarLayout;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textView;
-    private EditTextView idEditTextView;
+    private CustomEditTextView idEditTextView;
     private Button button;
     public int cursorPosition = 0;
     private RecyclerView recyclerView;
     private View topSheetBehavior;
     private LinearLayout bottom_sheet;
+    private HashSet<View> alternativeButtonsHash = new HashSet<>();
     private AppBarLayout appBarLayout;
     private LinearLayout content_view;
     private List<OperationCalculated> operationsCalculated = new LinkedList<>();
+    private ImageButton buttonCopy;
+    private ImageButton buttonPercent;
+    private ImageButton buttonOpenParenthesis;
+    private ImageButton buttonCloseParenthesis;
+    private ImageButton buttonBackSpace;
+    private ImageButton buttonDivision;
+    private ImageButton buttonMultiplication;
+    private ImageButton buttonSubtraction;
+    private ImageButton buttonSum;
+    private ImageButton buttonEquals;
+    private ImageButton buttonDown;
+    private ImageButton buttonUp;
+    private ImageButton buttonMenu;
+    private Button buttonSeparator;
+    private Button buttonClearAll;
+    private Button buttonZero;
+    private Button buttonOne;
+    private Button buttonTwo;
+    private Button buttonThree;
+    private Button buttonFour;
+    private Button buttonFive;
+    private Button buttonSix;
+    private Button buttonSeven;
+    private Button buttonEight;
+    private Button buttonNine;
+
+    {
+        puttingAlternativeButtonsHashMap();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        init();
+    }
+
+    private void init() {
         idEditTextView = findViewById(R.id.editTextViewID);
         recyclerView = findViewById(R.id.recycle_view_historic);
         content_view = findViewById(R.id.conent_main);
         topSheetBehavior = findViewById(R.id.top_sheet);
         TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
 
+        // buttons
+        buttonCopy = findViewById(R.id.buttonCopy);
+        buttonPercent = findViewById(R.id.buttonPercent);
+        buttonOpenParenthesis = findViewById(R.id.buttonOpenParenthesis);
+        buttonCloseParenthesis = findViewById(R.id.buttonCloseParenthesis);
+        buttonBackSpace = findViewById(R.id.buttonBackSpace);
+        buttonDivision = findViewById(R.id.buttonDivision);
+        buttonMultiplication = findViewById(R.id.buttonMultiplication);
+        buttonSubtraction = findViewById(R.id.buttonSubtraction);
+        buttonSum = findViewById(R.id.buttonSum);
+        buttonEquals = findViewById(R.id.buttonEquals);
+        buttonDown = findViewById(R.id.buttonDown);
+        buttonUp = findViewById(R.id.buttonUp);
+        buttonMenu = findViewById(R.id.buttonMenu);
+        buttonClearAll = findViewById(R.id.buttonClearAll);
+        buttonSeparator = findViewById(R.id.buttonSeparator);
+        buttonZero = findViewById(R.id.buttonZero);
+        buttonOne = findViewById(R.id.buttonOne);
+        buttonTwo = findViewById(R.id.buttonTwo);
+        buttonThree = findViewById(R.id.buttonThree);
+        buttonFour = findViewById(R.id.buttonFour);
+        buttonFive = findViewById(R.id.buttonFive);
+        buttonSix = findViewById(R.id.buttonSix);
+        buttonSeven = findViewById(R.id.buttonSeven);
+        buttonEight = findViewById(R.id.buttonEight);
+        buttonNine = findViewById(R.id.buttonNine);
+
+        puttingAlternativeButtonsHashMap();
+        setButtonOnClickListener();
     }
+
 
 //    private void initRecyclerView() {
 //        operationsCalculated.add(new OperationCalculated("Text", "test"));
@@ -57,19 +127,49 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(layoutManager);
 //    }
 
-    @SuppressLint("SetTextI18n")
+    public void setButtonOnClickListener() {
+        View[] buttons = {
+                buttonCopy, buttonPercent, buttonOpenParenthesis, buttonCloseParenthesis, buttonBackSpace
+                , buttonDivision, buttonMultiplication, buttonSubtraction, buttonSum, buttonEquals
+                , buttonDown, buttonUp, buttonMenu, buttonClearAll, buttonSeparator
+                , buttonZero, buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix
+                , buttonSeven, buttonEight, buttonNine
+        };
+
+        for (View e : buttons) {
+            e.setOnClickListener(this);
+        }
+    }
+
+    @Override
     public void onClick(@NonNull View viewButton) {
 
-        Button buttonID = viewButton.findViewById(viewButton.getId());
-        String textButton = buttonID.getText().toString();
+        if (isAlternativeFunction(viewButton)) {
+            if (buttonBackSpace.equals(viewButton)) {
+                excludeCharacter();
+            } else if (buttonEquals.equals(viewButton)) {
+                equalsResult();
+            } else if (buttonClearAll.equals(viewButton)) {
+                expressionClear();
+            } else if (buttonCopy.equals(viewButton)) {
+                copyCalculate();
+            } else if (buttonUp.equals(viewButton)) {
+                upExpression();
+            } else if (buttonDown.equals(viewButton)) {
+                downExpression();
+            } else {
+                acessMenu();
+            }
+        } else {
+            insertTextInEditText(viewButton);
+        }
+    }
 
-//        if (getEditTextSize() >= 1
-//                && ExpressionInputCheck.isOperator(textButton)
-//                && isReplace(textButton)) {
-//
-//            idEditTextView.getText().replace(getEditTextSize() - 1, getEditTextSize(), textButton);
-//
-//        } else {
+    // {buttonBackSpace, buttonEquals, buttonClearAll, buttonUp, buttonDown};
+
+    @SuppressLint("SetTextI18n")
+    private void insertTextInEditText(View viewButton) {
+        String textButton = (String) findViewById(viewButton.getId()).getContentDescription();
 
         if (idEditTextView.getSelectionEnd() == idEditTextView.textSize()) {
 
@@ -78,18 +178,47 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             insertTextButton(textButton);
-//            }
+        }
+
+        //        if (getEditTextSize() >= 1
+//                && ExpressionInputCheck.isOperator(textButton)
+//                && isReplace(textButton)) {
+//
+//            idEditTextView.getText().replace(getEditTextSize() - 1, getEditTextSize(), textButton);
+//
+//        } else {
+    }
+
+
+    private boolean isAlternativeFunction(View viewButton) {
+
+        return alternativeButtonsHash.contains(viewButton);
+    }
+
+    private void puttingAlternativeButtonsHashMap() {
+        View[] buttons = {
+                buttonBackSpace, buttonEquals, buttonClearAll, buttonUp, buttonDown
+                , buttonMenu, buttonCopy
+        };
+
+        alternativeButtonsHash.addAll(Arrays.asList(buttons));
+    }
+
+    private void acessMenu() {
+
+    }
+
+    private void upExpression() {
+        if (recyclerView.getChildCount() > 0) {
+
         }
     }
 
-//    public boolean isReplace(String textButton) {
-//
-//        return  ExpressionInputCheck.isOperator(String.valueOf(idEditTextView.getText().toString()))
-//                && !String.valueOf(idEditTextView.getText().toString().charAt(getEditTextSize() - 1)).equals("(")
-//                || !String.valueOf(idEditTextView.getText().toString().charAt(getEditTextSize() - 1)).equals(")")
-//                || !(String.valueOf(idEditTextView.getText().toString().charAt(getEditTextSize() - 1)).equals("%"))
-//                && textButton.equals("%");
-//    }
+    private void downExpression() {
+        if (recyclerView.getChildCount() > 0) {
+
+        }
+    }
 
     public void insertTextButton(String buttonText) {
 
@@ -103,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         idEditTextView.setSelection(cursorPositionNow);
     }
 
-    public void copyCalculate(@NonNull View copyViewButton) {
+    public void copyCalculate() {
         String messageCopy = "Resultado Copiado!";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this, messageCopy, duration);
@@ -137,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void equalsResult(View viewEqualButton) {
+    public void equalsResult() {
 
         if (!getTextViewId().getText().equals("Invalid Expression!")
                 && !getTextViewId().getText().toString().equals("=")
@@ -154,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void excludeCharacter(View viewExcludeCharacterButton) {
+    public void excludeCharacter() {
 
         cursorPosition = getCursorEnd();
 
@@ -179,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void expressionClear(View viewCleanButton) {
+    public void expressionClear() {
         idEditTextView.setText("");
         getTextViewId().setText("=");
     }
@@ -205,5 +334,4 @@ public class MainActivity extends AppCompatActivity {
     public int getEditTextSize() {
         return idEditTextView.getText().length();
     }
-
 }
