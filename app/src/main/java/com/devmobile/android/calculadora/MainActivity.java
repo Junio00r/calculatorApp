@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (idEditTextView.getSelectionEnd() == idEditTextView.textSize()) {
 
-            idEditTextView.setText(idEditTextView.getText() + textButton);
+            idEditTextView.setText(idEditTextView.getText() + textButton.toString());
             idEditTextView.setSelection(idEditTextView.getText().toString().length());
         } else {
 
