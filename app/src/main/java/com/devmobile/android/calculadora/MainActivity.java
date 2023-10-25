@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -67,20 +68,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonEight;
     private Button buttonNine;
 
-    {
-        puttingAlternativeButtonsHashMap();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Inflating all layouts in activity_main.xml
         setContentView(R.layout.activity_main);
 
-        init();
+
+        initReferences();
+
     }
 
-    private void init() {
+    @SuppressLint("ResourceType")
+    private void initReferences() {
+
         idEditTextView = findViewById(R.id.editTextViewID);
+        textView= findViewById(R.id.textResultExpression);
+        idEditTextView.setTextView(textView);
         recyclerView = findViewById(R.id.recycle_view_historic);
         content_view = findViewById(R.id.conent_main);
         topSheetBehavior = findViewById(R.id.top_sheet);
@@ -252,20 +257,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void setHistoric() {
-
-        String expression = idEditTextView.getText().toString();
-        String expressionResult = getTextViewId().getText().toString();
-
-        operationsCalculated.add(new OperationCalculated(expression, expressionResult));
-        recyclerView.setAdapter(new OperationCalculatedAdapter(operationsCalculated, this));
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-    }
-
     public void equalsResult() {
 
         if (!getTextViewId().getText().equals("Invalid Expression!")
@@ -313,10 +304,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getTextViewId().setText("=");
     }
 
-    // Setters
-    public void setResultTextView(TextView textView) {
-        idEditTextView.textChangeOnListener(textView);
+    public void setHistoric() {
+
+        String expression = idEditTextView.getText().toString();
+        String expressionResult = getTextViewId().getText().toString();
+
+        operationsCalculated.add(new OperationCalculated(expression, expressionResult));
+        recyclerView.setAdapter(new OperationCalculatedAdapter(operationsCalculated, this));
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+
+        recyclerView.setLayoutManager(layoutManager);
+
     }
+
+    // Setters
+//    public void setResultTextView(TextView textView) {
+//        idEditTextView.textChangeOnListener(textView);
+//    }
 
     // Getters
     public TextView getTextViewId() {

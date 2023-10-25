@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="gray">#4E4E4E</color>
     <color name="gray_background">#BDBDBD</color>
-    <color name="orange">#F57C00</color>
     <color name="brown">#77563C</color>
     <color name="primary">#F8F8F4</color>
-    <color name="greem_one">#17731B</color>
-    <color name="green_twa">#C7FFCA</color>
 </resources>

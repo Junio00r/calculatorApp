@@ -2,19 +2,15 @@
 
 <resources>
 
-    <!--  EditText  -->
-    <declare-styleable name="EditTextView">
+    <declare-styleable name="CustomEditTextView">
 
-        <attr name="edit_text_view_quantity_lines" format="integer" />
-
+        <attr name="editTestQuantityLines" format="integer" />
     </declare-styleable>
 
 
-    <!--  Button  -->
     <declare-styleable name="BackgroundButtonView">
 
         <attr name="background_button_elevation" format="dimension" />
-
     </declare-styleable>
 
 </resources>

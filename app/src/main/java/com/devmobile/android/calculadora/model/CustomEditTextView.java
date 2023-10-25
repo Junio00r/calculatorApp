@@ -1,6 +1,7 @@
 package com.devmobile.android.calculadora.model;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,41 +10,43 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import com.devmobile.android.calculadora.R;
 
+import androidx.annotation.NonNull;
+
+import com.devmobile.android.calculadora.R;
 
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
     private final int distanceFirstBaseLineToTopHeight = 10;
-    private final int quantityLinesEditText = 2;
+    private final int quantityLinesEditText;
     private final boolean isHasLine = false;
     private final float sizeText = (float) 40.5;
     private CustomEditTextView idEditTextView;
     public TextView textView;
     private String expressionCalculate = "";
 
-    public CustomEditTextView(Context context) {
-        super(context);
-
-        idEditTextView = this.findViewById(R.id.editTextViewID);
-        TypedArray typedArray = context.obtainStyledAttributes(R.styleable.EditTextView);
-
-        init();
-    }
-
     public CustomEditTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomEditTextView);
+        initView();
 
-        idEditTextView = this.findViewById(R.id.editTextViewID);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextView);
+        try {
+            quantityLinesEditText = typedArray.getInt(R.styleable.CustomEditTextView_editTestQuantityLines, 1);
+        } finally {
 
-        init();
+            typedArray.recycle();
+        }
     }
 
-    public void init() {
 
-        idEditTextView.setTextSize(40);
+    @SuppressLint("ResourceType")
+    public void initView() {
+
+        idEditTextView = findViewById(R.id.editTextViewID);
+        idEditTextView.setTextSize(45);
         idEditTextView.setLines(1);
         idEditTextView.setCursorVisible(true);
         idEditTextView.setShowSoftInputOnFocus(false);
@@ -55,7 +58,6 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         );
 
         idEditTextView.getSelectionStart();
-
     }
 
 
@@ -79,13 +81,9 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
     }
 
 
-
-    public void textChangeOnListener(TextView textViewShowResult) {
-
-        textView = textViewShowResult;
-
-        idEditTextView.addTextChangedListener(new TextWatcher() {
-
+    @Override
+    public void addTextChangedListener(TextWatcher watcher) {
+        super.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -93,13 +91,13 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                insertResultInTextView(s.toString());
+                if (textView != null)
+                    insertResultInTextView(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
-
         });
     }
 
@@ -164,6 +162,10 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
         super.setMaxWidth(maxPixels);
 
+    }
+
+    public void setTextView(TextView textView) {
+        this.textView = textView;
     }
 
     @Override

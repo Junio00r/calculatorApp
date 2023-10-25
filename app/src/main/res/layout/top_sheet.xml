@@ -12,8 +12,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view_historic"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
         android:layout_height="535dp"
+        android:layout_margin="10dp"
         android:background="@color/primary"
         android:scrollbars="vertical" />
 
@@ -28,14 +28,13 @@
     <com.devmobile.android.calculadora.model.CustomEditTextView
         android:id="@+id/editTextViewID"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
+        android:layout_height="135dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:allowUndo="true"
         android:background="@color/primary"
         android:firstBaselineToTopHeight="10dp"
-        android:hint="@null"
         android:importantForAccessibility="no"
         android:inputType="text|textNoSuggestions|numberDecimal"
         android:lines="1"
@@ -43,23 +42,24 @@
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textCursorDrawable="@color/black"
-        android:typeface="sans" />
+        android:typeface="sans"
+        app:editTestQuantityLines="1" />
 
     <TextView
         android:id="@+id/textResultExpression"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/primary"
         android:lines="1"
         android:maxWidth="500dp"
-        android:paddingTop="3dp"
+        android:paddingTop="5dp"
         android:text="="
         android:textAlignment="textEnd"
         android:textColor="@color/gray_background"
-        android:textSize="30sp" />
+        android:textSize="35sp" />
 
     <ImageButton
         android:id="@+id/buttonCopy"
