@@ -26,5 +26,16 @@
     <string name="copy">copy</string>
 
     <!-- Expensive Buttons   -->
+    <string name="euler">e</string>
+    <string name="fatorial">x!</string>
+    <string name="raizQuadrada">√</string>
+    <string name="pi">π</string>
+    <string name="log">log</string>
+    <string name="sen">sen</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="expoente">^</string>
+    <string name="backspace">backspace</string>
+    <string name="eqauals">eqauals</string>
 
 </resources>
