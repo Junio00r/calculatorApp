@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,29 +18,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.devmobile.android.calculadora.model.CustomEditTextView;
+import com.devmobile.android.calculadora.model.OnItemClickListener;
 import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        View.OnClickListener, OnItemClickListener {
     private TextView textView;
     private CustomEditTextView idEditTextView;
+    private OperationCalculatedAdapter operationCalculatedAdapter;
     private Button button;
+    private List<OperationCalculated> operationsCalculated = new LinkedList<>();
     public int cursorPosition = 0;
     private RecyclerView recyclerView;
     private View topSheetBehavior;
+    private RecyclerView.LayoutManager layoutManager;
     private LinearLayout bottom_sheet;
     private HashSet<View> alternativeButtonsHash = new HashSet<>();
     private AppBarLayout appBarLayout;
     private LinearLayout content_view;
-    private List<OperationCalculated> operationsCalculated = new LinkedList<>();
     private ImageButton buttonCopy;
     private ImageButton buttonPercent;
     private ImageButton buttonOpenParenthesis;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initReferences() {
 
         idEditTextView = findViewById(R.id.editTextViewID);
-        textView= findViewById(R.id.textResultExpression);
+        textView = findViewById(R.id.textResultExpression);
         idEditTextView.setTextView(textView);
         recyclerView = findViewById(R.id.recycle_view_historic);
         content_view = findViewById(R.id.conent_main);
@@ -120,17 +122,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         puttingAlternativeButtonsHashMap();
         setButtonOnClickListener();
+        initAdapterRecyclerView();
     }
 
 
-//    private void initRecyclerView() {
-//        operationsCalculated.add(new OperationCalculated("Text", "test"));
-//        recyclerView.setAdapter(new OperationCalculatedAdapter(operationsCalculated, this));
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//    }
+    private void initAdapterRecyclerView() {
+        layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        this.operationCalculatedAdapter = new OperationCalculatedAdapter(operationsCalculated, this);
+        recyclerView.setAdapter(this.operationCalculatedAdapter);
+        recyclerView.setLayoutManager(this.layoutManager);
+        this.operationCalculatedAdapter.addItemClickListener(this);
+    }
 
     public void setButtonOnClickListener() {
         View[] buttons = {
@@ -166,25 +168,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 acessMenu();
             }
         } else {
-            insertTextInEditText(viewButton);
+            insertTextInEditText(viewButton.getContentDescription().toString());
         }
     }
 
-    // {buttonBackSpace, buttonEquals, buttonClearAll, buttonUp, buttonDown};
-
     @SuppressLint("SetTextI18n")
-    private void insertTextInEditText(View viewButton) {
-        String textButton = (String) findViewById(viewButton.getId()).getContentDescription();
+    private void insertTextInEditText(String text) {
+        int cursorPositionBefore;
+        int cursorPositionNow;
 
-        if (idEditTextView.getSelectionEnd() == idEditTextView.textSize()) {
+        if (getEditTextSize() > 0 && getTextSize() == 1) {
+            idEditTextView.setText(text);
+            cursorPositionNow = idEditTextView.getText().length();
 
-            idEditTextView.setText(idEditTextView.getText() + textButton.toString());
-            idEditTextView.setSelection(idEditTextView.getText().toString().length());
+            idEditTextView.setSelection(cursorPositionNow);
         } else {
+            if (idEditTextView.getSelectionEnd() == getEditTextSize()) {
 
-            insertTextButton(textButton);
+                idEditTextView.setText(idEditTextView.getText() + text);
+                idEditTextView.setSelection(idEditTextView.getText().toString().length());
+            } else {
+
+                String textLeftCursor = (String) idEditTextView.getText().toString().subSequence(0, getCursorStart());
+                String textRightCursor = (String) idEditTextView.getText().toString().subSequence(getCursorEnd(), idEditTextView.getText().toString().length());
+                String completedExpressionInput = textLeftCursor + text + textRightCursor;
+                cursorPositionBefore = getCursorEnd();
+                cursorPositionNow = cursorPositionBefore + 1;
+
+                idEditTextView.setText(completedExpressionInput);
+                idEditTextView.setSelection(cursorPositionNow);
+            }
         }
-
         //        if (getEditTextSize() >= 1
 //                && ExpressionInputCheck.isOperator(textButton)
 //                && isReplace(textButton)) {
@@ -193,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        } else {
     }
-
 
     private boolean isAlternativeFunction(View viewButton) {
 
@@ -223,18 +236,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (recyclerView.getChildCount() > 0) {
 
         }
-    }
-
-    public void insertTextButton(String buttonText) {
-
-        String textLeftCursor = (String) idEditTextView.getText().toString().subSequence(0, getCursorStart());
-        String textRightCursor = (String) idEditTextView.getText().toString().subSequence(getCursorEnd(), idEditTextView.getText().toString().length());
-        String completedExpressionInput = textLeftCursor + buttonText + textRightCursor;
-        int cursorPositionBefore = getCursorEnd();
-        int cursorPositionNow = cursorPositionBefore + 1;
-
-        idEditTextView.setText(completedExpressionInput);
-        idEditTextView.setSelection(cursorPositionNow);
     }
 
     public void copyCalculate() {
@@ -306,22 +307,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setHistoric() {
 
-        String expression = idEditTextView.getText().toString();
-        String expressionResult = getTextViewId().getText().toString();
+        if (getEditTextSize() > 0) {
 
-        operationsCalculated.add(new OperationCalculated(expression, expressionResult));
-        recyclerView.setAdapter(new OperationCalculatedAdapter(operationsCalculated, this));
+            String expression = idEditTextView.getText().toString();
+            String expressionResult = getTextViewId().getText().toString();
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+            if (operationsCalculated.size() <= 5) {
 
-        recyclerView.setLayoutManager(layoutManager);
+                operationsCalculated.add(new OperationCalculated(expression, expressionResult));
+                operationCalculatedAdapter.notifyItemInserted(recyclerView.getAdapter().getItemCount() - 1);
 
+            } else {
+                operationsCalculated.remove(0);
+                operationCalculatedAdapter.notifyItemRemoved(0);
+
+                operationsCalculated.add(new OperationCalculated(expression, expressionResult));
+                operationCalculatedAdapter.notifyItemInserted(recyclerView.getAdapter().getItemCount() - 1);
+            }
+        }
     }
 
-    // Setters
-//    public void setResultTextView(TextView textView) {
-//        idEditTextView.textChangeOnListener(textView);
-//    }
+    @Override
+    public void onClickItem(int positionTouched) {
+        String expressionClicking = operationsCalculated.get(positionTouched).getExpression();
+        operationsCalculated.remove(positionTouched);
+        operationCalculatedAdapter.notifyItemRemoved(positionTouched);
+
+        if (!this.idEditTextView.getText().equals("")) {
+            setHistoric();
+        }
+
+        insertTextInEditText(expressionClicking);
+    }
 
     // Getters
     public TextView getTextViewId() {
@@ -336,7 +353,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return idEditTextView.getSelectionStart();
     }
 
-    public int getEditTextSize() {
-        return idEditTextView.getText().length();
+    public int getTextSize() {
+        return textView.getText().toString().trim().length();
     }
+
+    public int getEditTextSize() {
+        return idEditTextView.getText().toString().trim().length();
+    }
+
 }

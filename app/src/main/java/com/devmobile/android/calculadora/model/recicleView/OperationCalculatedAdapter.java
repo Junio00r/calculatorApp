@@ -7,22 +7,41 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.devmobile.android.calculadora.R;
+import com.devmobile.android.calculadora.model.CustomEditTextView;
+import com.devmobile.android.calculadora.model.OnItemClickListener;
+
 import java.util.List;
 
-/* Adapter é a ponte entre o entre o AdpaterView (RecyclerView) e os dados que serão
-colocados na visiulização (OperationCalculeted). E também é responsavel por fazer uma
-visiualização para cada um desses dados.
+/** Adapter é a ponte entre o entre o AdpaterView (RecyclerView) e os dados que serão
+ colocados na visiulização (OperationCalculeted). E também é responsavel por fazer uma
+ visiualização para cada um desses dados. O RecyclerView se comunica com esse Adapter e então
+ o Adapter carrega/infla um determinado view holder  e é retornado para o recycler view a referencia
+ dessa holder, mas ainda para definir os dados de uma determinada holder, o recycler view precisa
+ comunicar-se com este adapter, e então o adapter faz a ponte transferindo os dados para a determinada
+ ViewHolder.
  */
 public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationViewHolder> {
     private List<OperationCalculated> operations;
+    private int positionTouched;
     private Context context;
-//    private View.OnClickListener clickListener;
+    private OnItemClickListener onItemClickListener;
 
     public OperationCalculatedAdapter(List<OperationCalculated> operationsCalculated, Context context) {
         this.operations = operationsCalculated;
         this.context = context;
     }
 
+    public void addItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+    /**
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return OperationViewHolder Return a view holder created/inflated for the this one Adapter, and send to
+     * RecyclerView that call this Adapter.
+     */
     @NonNull
     @Override
     public OperationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,10 +53,10 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
     }
 
     /*
-    Método responsável por reciclar e excluir os itens (ViewHolders) no RecyclerView.
-    Ele se responsabiliza por trazer de volta os itens que não estavam sendo mostrado
-    para o usuário. Ou seja, a medida que o user vai descendo (ou subindo), é esse
-    método que será responsável por mostrar os itens e gerenciálos.
+        Método responsável por reciclar e excluir os itens (ViewHolders) no RecyclerView.
+        Ele se responsabiliza por trazer de volta os itens que não estavam sendo mostrado
+        para o usuário. Ou seja, a medida que o user vai descendo (ou subindo), é esse
+        método que será responsável por mostrar os itens e gerenciálos.
      */
 
     /**
@@ -48,18 +67,19 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
     @Override
     public void onBindViewHolder(@NonNull OperationViewHolder viewHolder, int position) {
 
-        OperationViewHolder holder = (OperationViewHolder) viewHolder;
         OperationCalculated operationRecyclateIndex = operations.get(position);
+        ((OperationViewHolder) viewHolder).expression.setText(operationRecyclateIndex.getExpression());
+        ((OperationViewHolder) viewHolder).resultExpression.setText(operationRecyclateIndex.getResultExpression());
 
-        holder.expression.setText(operationRecyclateIndex.getExpression());
-        holder.resultExpression.setText(operationRecyclateIndex.getResultExpression());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                clickListener.onClick(view) ;
-//            }
-//        });
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(viewHolder.getAbsoluteAdapterPosition());
+                }
+            }
+        });
     }
 
     /**
@@ -71,15 +91,6 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
 
         return operations.size();
 
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    public void removeOperationCalculated() {
-        operations.remove(operations.size());
     }
 
 }

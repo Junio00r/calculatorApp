@@ -12,10 +12,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view_historic"
         android:layout_width="match_parent"
-        android:layout_height="535dp"
+        android:layout_height="540dp"
+        android:scrollbars="none"
         android:layout_margin="10dp"
-        android:background="@color/primary"
-        android:scrollbars="vertical" />
+        android:background="@color/primary" />
 
     <View
         android:id="@+id/line1"
@@ -28,7 +28,7 @@
     <com.devmobile.android.calculadora.model.CustomEditTextView
         android:id="@+id/editTextViewID"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="130dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:background="@color/gray_background" />
 

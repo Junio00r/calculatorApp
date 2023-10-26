@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linear_layout_histotic"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -12,14 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:padding="5dp"
+        android:ellipsize="end"
+        android:lines="1"
         android:textAlignment="textEnd"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/resultExpressionHistoric"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:lines="1"
         android:padding="5dp"
         android:textAlignment="textEnd"
         android:textSize="20sp" />
