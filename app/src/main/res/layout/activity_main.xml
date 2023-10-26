@@ -25,5 +25,10 @@
 
     <include layout="@layout/top_sheet" />
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/keyboard_default_viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
