@@ -1,5 +1,5 @@
 *.iml
-.zip
+/*.zip
 .gradle
 /gradle
 .idea
