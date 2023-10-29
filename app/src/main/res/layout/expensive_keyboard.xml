@@ -8,7 +8,7 @@
     android:background="@color/primary">
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/gridLayoutExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
@@ -18,7 +18,7 @@
         app:rowCount="7">
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/buttonTan"
+            android:id="@+id/buttonTanExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/tan"
@@ -28,7 +28,7 @@
             app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/buttonCos"
+            android:id="@+id/buttonCosExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/cos"
@@ -38,7 +38,7 @@
             app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/buttonSen"
+            android:id="@+id/buttonSenExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/sen"
@@ -48,7 +48,7 @@
             app:layout_row="0" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/buttonLog"
+            android:id="@+id/buttonLogExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/log"
@@ -58,7 +58,7 @@
             app:layout_row="0" />
 
         <ImageButton
-            android:id="@+id/buttonExpoente"
+            android:id="@+id/buttonExpoenteExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -72,7 +72,7 @@
             app:layout_row="1" />
 
         <ImageButton
-            android:id="@+id/buttonFatorial"
+            android:id="@+id/buttonFactorialExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -87,7 +87,7 @@
 
 
         <ImageButton
-            android:id="@+id/buttonRaizQuadrada"
+            android:id="@+id/buttonRaizQuadradaExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -101,7 +101,7 @@
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/buttonEuler"
+            android:id="@+id/buttonEulerExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/euler"
@@ -112,7 +112,7 @@
             app:layout_row="4" />
 
         <ImageButton
-            android:id="@+id/buttonPi"
+            android:id="@+id/buttonPiExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -126,7 +126,7 @@
             app:layout_row="5" />
 
         <ImageButton
-            android:id="@+id/button1"
+            android:id="@+id/buttonOpenParenthesisExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -136,11 +136,11 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_open_parenthesis_1024px"
-            app:layout_column="1"
+            app:layout_column="2"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button2"
+            android:id="@+id/buttonSevenExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/sete"
@@ -149,7 +149,7 @@
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button3"
+            android:id="@+id/buttonFourExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/quatro"
@@ -158,7 +158,7 @@
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button4"
+            android:id="@+id/buttonOneExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/um"
@@ -167,7 +167,7 @@
             app:layout_row="4" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button5"
+            android:id="@+id/buttonClearAllExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/deletar_expressao"
@@ -176,7 +176,7 @@
             app:layout_row="5" />
 
         <ImageButton
-            android:id="@+id/button6"
+            android:id="@+id/buttonCloseParenthesisExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -186,11 +186,11 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_close_parenthesis_1024px"
-            app:layout_column="2"
+            app:layout_column="3"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button7"
+            android:id="@+id/buttonEightExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/oito"
@@ -199,7 +199,7 @@
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button8"
+            android:id="@+id/buttonFiveExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/cinco"
@@ -208,7 +208,7 @@
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button9"
+            android:id="@+id/buttonTwoExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/dois"
@@ -217,7 +217,7 @@
             app:layout_row="4" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button10"
+            android:id="@+id/buttonZeroExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/zero"
@@ -226,7 +226,7 @@
             app:layout_row="5" />
 
         <ImageButton
-            android:id="@+id/button11"
+            android:id="@+id/buttonPercentExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -236,11 +236,11 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_percent_1024px"
-            app:layout_column="3"
+            app:layout_column="1"
             app:layout_row="1" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button12"
+            android:id="@+id/buttonNineExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/nove"
@@ -249,7 +249,7 @@
             app:layout_row="2" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button13"
+            android:id="@+id/buttonSixExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/seis"
@@ -258,7 +258,7 @@
             app:layout_row="3" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button14"
+            android:id="@+id/buttonThreeExp"
             style="@style/ViewPagerButtonsDefault"
             android:layout_margin="5dp"
             android:contentDescription="@string/tres"
@@ -267,7 +267,7 @@
             app:layout_row="4" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
-            android:id="@+id/button15"
+            android:id="@+id/buttonSeparatorExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_margin="5dp"
             android:contentDescription="@string/separador"
@@ -276,7 +276,7 @@
             app:layout_row="5" />
 
         <ImageButton
-            android:id="@+id/button16"
+            android:id="@+id/buttonBackSpaceExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -290,7 +290,7 @@
             app:layout_row="0" />
 
         <ImageButton
-            android:id="@+id/button17"
+            android:id="@+id/buttonDivisionExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -304,7 +304,7 @@
             app:layout_row="1" />
 
         <ImageButton
-            android:id="@+id/button18"
+            android:id="@+id/buttonMultiplicationExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -318,7 +318,7 @@
             app:layout_row="2" />
 
         <ImageButton
-            android:id="@+id/button19"
+            android:id="@+id/buttonSubtractionExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -332,7 +332,7 @@
             app:layout_row="3" />
 
         <ImageButton
-            android:id="@+id/button20"
+            android:id="@+id/buttonSumExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -346,7 +346,7 @@
             app:layout_row="4" />
 
         <ImageButton
-            android:id="@+id/button21"
+            android:id="@+id/buttonEqualsExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="68dp"
             android:layout_height="59dp"
@@ -369,7 +369,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
-            android:id="@+id/buttonUp"
+            android:id="@+id/buttonUpExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="186dp"
             android:layout_margin="5dp"
@@ -379,7 +379,7 @@
             android:src="@drawable/icon_up" />
 
         <ImageButton
-            android:id="@+id/buttonDown"
+            android:id="@+id/buttonDownExp"
             style="@style/ViewPagerButtonsEspecial"
             android:layout_width="186dp"
             android:layout_margin="5dp"
