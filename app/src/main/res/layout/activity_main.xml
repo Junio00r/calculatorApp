@@ -9,26 +9,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarWithGrid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:layout_anchor="@id/top_sheet"
-        app:layout_anchorGravity="bottom"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <include layout="@layout/conent_main" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <include layout="@layout/top_sheet" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/keyboard_default_viewPager2"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="500dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_anchor="@id/top_sheet"
+        app:layout_anchorGravity="bottom">
 
+    </androidx.viewpager2.widget.ViewPager2>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,7 +24,5 @@ public class CustomRecyclerView extends RecyclerView implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
-        System.out.println("Here!");;
-    }
+    public void onClick(View v) { }
 }

@@ -5,25 +5,27 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.OnItemClickListener;
 import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
+import com.devmobile.android.calculadora.model.viewPager2Fragment.ViewPagerKeyboardAdapter;
 import com.google.android.material.appbar.AppBarLayout;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
     private LinearLayout bottom_sheet;
     private HashSet<View> alternativeButtonsHash = new HashSet<>();
     private AppBarLayout appBarLayout;
-    private LinearLayout content_view;
+    private ConstraintLayout defaultKeyboard;
     private ImageButton buttonCopy;
     private ImageButton buttonPercent;
     private ImageButton buttonOpenParenthesis;
@@ -73,13 +75,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Inflating all layouts in activity_main.xml
         setContentView(R.layout.activity_main);
 
-
         initReferences();
-
     }
 
     @SuppressLint("ResourceType")
@@ -89,36 +88,41 @@ public class MainActivity extends AppCompatActivity implements
         textView = findViewById(R.id.textResultExpression);
         idEditTextView.setTextView(textView);
         recyclerView = findViewById(R.id.recycle_view_historic);
-        content_view = findViewById(R.id.conent_main);
+        defaultKeyboard = findViewById(R.id.default_keyboard);
         topSheetBehavior = findViewById(R.id.top_sheet);
         TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View externalLayout = layoutInflater.inflate(R.layout.default_keyboard, null);
+
+        ViewPager2 viewPager2 = findViewById(R.id.viewPager);
+        viewPager2.setAdapter(new ViewPagerKeyboardAdapter(this));
 
         // buttons
         buttonCopy = findViewById(R.id.buttonCopy);
-        buttonPercent = findViewById(R.id.buttonPercent);
-        buttonOpenParenthesis = findViewById(R.id.buttonOpenParenthesis);
-        buttonCloseParenthesis = findViewById(R.id.buttonCloseParenthesis);
-        buttonBackSpace = findViewById(R.id.buttonBackSpace);
-        buttonDivision = findViewById(R.id.buttonDivision);
-        buttonMultiplication = findViewById(R.id.buttonMultiplication);
-        buttonSubtraction = findViewById(R.id.buttonSubtraction);
-        buttonSum = findViewById(R.id.buttonSum);
-        buttonEquals = findViewById(R.id.buttonEquals);
-        buttonDown = findViewById(R.id.buttonDown);
-        buttonUp = findViewById(R.id.buttonUp);
-        buttonMenu = findViewById(R.id.buttonMenu);
-        buttonClearAll = findViewById(R.id.buttonClearAll);
-        buttonSeparator = findViewById(R.id.buttonSeparator);
-        buttonZero = findViewById(R.id.buttonZero);
-        buttonOne = findViewById(R.id.buttonOne);
-        buttonTwo = findViewById(R.id.buttonTwo);
-        buttonThree = findViewById(R.id.buttonThree);
-        buttonFour = findViewById(R.id.buttonFour);
-        buttonFive = findViewById(R.id.buttonFive);
-        buttonSix = findViewById(R.id.buttonSix);
-        buttonSeven = findViewById(R.id.buttonSeven);
-        buttonEight = findViewById(R.id.buttonEight);
-        buttonNine = findViewById(R.id.buttonNine);
+        buttonPercent = externalLayout.findViewById(R.id.buttonPercent);
+        buttonOpenParenthesis = externalLayout.findViewById(R.id.buttonOpenParenthesis);
+        buttonCloseParenthesis = externalLayout.findViewById(R.id.buttonCloseParenthesis);
+        buttonBackSpace = externalLayout.findViewById(R.id.buttonBackSpace);
+        buttonDivision = externalLayout.findViewById(R.id.buttonDivision);
+        buttonMultiplication = externalLayout.findViewById(R.id.buttonMultiplication);
+        buttonSubtraction = externalLayout.findViewById(R.id.buttonSubtraction);
+        buttonSum = externalLayout.findViewById(R.id.buttonSum);
+        buttonEquals = externalLayout.findViewById(R.id.buttonEquals);
+        buttonDown = externalLayout.findViewById(R.id.buttonDown);
+        buttonUp = externalLayout.findViewById(R.id.buttonUp);
+        buttonMenu = externalLayout.findViewById(R.id.buttonMenu);
+        buttonClearAll = externalLayout.findViewById(R.id.buttonClearAll);
+        buttonSeparator = externalLayout.findViewById(R.id.buttonSeparator);
+        buttonZero = externalLayout.findViewById(R.id.buttonZero);
+        buttonOne = externalLayout.findViewById(R.id.buttonOne);
+        buttonTwo = externalLayout.findViewById(R.id.buttonTwo);
+        buttonThree = externalLayout.findViewById(R.id.buttonThree);
+        buttonFour = externalLayout.findViewById(R.id.buttonFour);
+        buttonFive = externalLayout.findViewById(R.id.buttonFive);
+        buttonSix = externalLayout.findViewById(R.id.buttonSix);
+        buttonSeven = externalLayout.findViewById(R.id.buttonSeven);
+        buttonEight = externalLayout.findViewById(R.id.buttonEight);
+        buttonNine = externalLayout.findViewById(R.id.buttonNine);
 
         puttingAlternativeButtonsHashMap();
         setButtonOnClickListener();
@@ -144,7 +148,11 @@ public class MainActivity extends AppCompatActivity implements
         };
 
         for (View e : buttons) {
-            e.setOnClickListener(this);
+
+            if (e != null)
+                e.setOnClickListener(this);
+            else
+                System.out.println("here");
         }
     }
 
@@ -276,13 +284,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void excludeCharacter() {
-
         cursorPosition = getCursorEnd();
 
         if (cursorPosition > 0) {
-
             if (getCursorStart() == getCursorEnd()) {
-
                 if (getCursorStart() < getEditTextSize()
                         && getCursorStart() > 0) {
 
@@ -292,9 +297,7 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
                     idEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
                 }
-
             } else {
-
                 idEditTextView.getText().delete(getCursorStart(), getCursorEnd());
             }
         }
@@ -339,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements
 
         insertTextInEditText(expressionClicking);
     }
+
 
     // Getters
     public TextView getTextViewId() {

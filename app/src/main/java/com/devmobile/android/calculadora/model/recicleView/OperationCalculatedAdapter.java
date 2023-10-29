@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.OnItemClickListener;
-
 import java.util.List;
 
 /** Adapter é a ponte entre o entre o AdpaterView (RecyclerView) e os dados que serão
@@ -22,13 +20,11 @@ import java.util.List;
  */
 public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationViewHolder> {
     private List<OperationCalculated> operations;
-    private int positionTouched;
     private Context context;
     private OnItemClickListener onItemClickListener;
 
     public OperationCalculatedAdapter(List<OperationCalculated> operationsCalculated, Context context) {
         this.operations = operationsCalculated;
-        this.context = context;
     }
 
     public void addItemClickListener(OnItemClickListener onItemClickListener) {
