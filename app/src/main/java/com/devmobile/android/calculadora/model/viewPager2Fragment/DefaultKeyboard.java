@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.OnButtonClickListener;
+import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
 public class DefaultKeyboard extends Fragment
         implements View.OnClickListener, OnButtonClickListener {

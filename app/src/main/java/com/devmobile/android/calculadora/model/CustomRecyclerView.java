@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CustomRecyclerView extends RecyclerView implements View.OnClickListener {
+public class CustomRecyclerView extends RecyclerView {
     private Context context;
 
     public CustomRecyclerView(@NonNull Context context) {
@@ -22,7 +22,4 @@ public class CustomRecyclerView extends RecyclerView implements View.OnClickList
         super(context, attrs);
         this.context = context;
     }
-
-    @Override
-    public void onClick(View v) { }
 }

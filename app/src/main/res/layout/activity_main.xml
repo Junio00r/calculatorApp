@@ -14,12 +14,10 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         app:layout_anchor="@id/top_sheet"
-        app:layout_anchorGravity="bottom">
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_anchorGravity="bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

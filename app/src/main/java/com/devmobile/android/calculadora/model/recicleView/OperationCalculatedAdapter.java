@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.OnItemClickListener;
+import com.devmobile.android.calculadora.model.interfaces.OnItemClickListener;
 import java.util.List;
 
 /** Adapter é a ponte entre o entre o AdpaterView (RecyclerView) e os dados que serão
@@ -72,7 +72,7 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onClickItem(viewHolder.getAbsoluteAdapterPosition());
+                    onItemClickListener.onRemoveOnPositionRecycler(viewHolder.getAbsoluteAdapterPosition());
                 }
             }
         });

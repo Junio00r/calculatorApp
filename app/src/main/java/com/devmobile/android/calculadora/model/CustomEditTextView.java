@@ -1,7 +1,6 @@
 package com.devmobile.android.calculadora.model;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,9 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -114,12 +110,12 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
                     && !String.valueOf(partialExpression.charAt(partialExpression.length() - 1)).equals(")")) {
 
                 expressionCalculate = partialExpression;
-                ResultTextView.lastEspecialCharacter(String.valueOf(partialExpression.charAt(partialExpression.length() - 1)));
+                RefactorExpression.LAST_INPUT_CHAR = String.valueOf(partialExpression.charAt(partialExpression.length() - 1));
 
             } else {
 
                 expressionCalculate = partialExpression;
-                String resultOperation = ResultTextView.calculateResultOperation(expressionCalculate);
+                String resultOperation = ResultExpression.calculateResultOperation(expressionCalculate);
 
                 if (resultOperation.equals("Invalid Expression!")) {
 

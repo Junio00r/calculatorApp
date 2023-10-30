@@ -1,6 +1,5 @@
 package com.devmobile.android.calculadora.model.viewPager2Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -8,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.devmobile.android.calculadora.model.OnButtonClickListener;
+import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
 public class ViewPagerKeyboardAdapter
         extends FragmentStateAdapter

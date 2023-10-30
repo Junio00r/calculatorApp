@@ -12,9 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.OnButtonClickListener;
+import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
-public class ExpensiveKeyboard extends Fragment
+public class ExpensiveKeyboard
+        extends Fragment
         implements View.OnClickListener, OnButtonClickListener {
 
     private OnButtonClickListener onButtonClickListener;
@@ -29,9 +30,18 @@ public class ExpensiveKeyboard extends Fragment
     private ImageButton buttonEqualsExp;
     private ImageButton buttonDownExp;
     private ImageButton buttonUpExp;
-    private ImageButton buttonMenuExp;
     private Button buttonSeparatorExp;
     private Button buttonClearAllExp;
+    private Button buttonTanExp;
+    private Button buttonCosExp;
+    private Button buttonSenExp;
+    private Button buttonLogExp;
+    private ImageButton buttonExpoenteExp;
+    private ImageButton buttonFactorialExp;
+    private ImageButton buttonRaizQuadradaExp;
+    private Button buttonEulerExp;
+    private ImageButton buttonPiExp;
+
     private Button buttonZeroExp;
     private Button buttonOneExp;
     private Button buttonTwoExp;
@@ -61,11 +71,11 @@ public class ExpensiveKeyboard extends Fragment
          * If false, root is only used to create the correct subclass of LayoutParams for the root view in the XML
          */
         View viewInflater = inflater.inflate(R.layout.expensive_keyboard, container, false);
+
         initReferences(viewInflater);
         onClickButton(viewInflater);
 
         return viewInflater;
-
     }
 
     public void addOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
@@ -73,6 +83,8 @@ public class ExpensiveKeyboard extends Fragment
     }
 
     public void initReferences(View v) {
+
+        // symbols
         buttonPercentExp = v.findViewById(R.id.buttonPercentExp);
         buttonOpenParenthesisExp = v.findViewById(R.id.buttonOpenParenthesisExp);
         buttonCloseParenthesisExp = v.findViewById(R.id.buttonCloseParenthesisExp);
@@ -86,6 +98,17 @@ public class ExpensiveKeyboard extends Fragment
         buttonUpExp = v.findViewById(R.id.buttonUpExp);
         buttonClearAllExp = v.findViewById(R.id.buttonClearAllExp);
         buttonSeparatorExp = v.findViewById(R.id.buttonSeparatorExp);
+        buttonTanExp = v.findViewById(R.id.buttonTanExp);
+        buttonCosExp = v.findViewById(R.id.buttonCosExp);
+        buttonSenExp = v.findViewById(R.id.buttonSenExp);
+        buttonLogExp = v.findViewById(R.id.buttonLogExp);
+        buttonExpoenteExp = v.findViewById(R.id.buttonExpoenteExp);
+        buttonFactorialExp = v.findViewById(R.id.buttonFactorialExp);
+        buttonRaizQuadradaExp = v.findViewById(R.id.buttonRaizQuadradaExp);
+        buttonEulerExp = v.findViewById(R.id.buttonEulerExp);
+        buttonPiExp = v.findViewById(R.id.buttonPiExp);
+
+        // numbers
         buttonZeroExp = v.findViewById(R.id.buttonZeroExp);
         buttonOneExp = v.findViewById(R.id.buttonOneExp);
         buttonTwoExp = v.findViewById(R.id.buttonTwoExp);
@@ -105,14 +128,13 @@ public class ExpensiveKeyboard extends Fragment
                 , buttonBackSpaceExp, buttonDivisionExp, buttonMultiplicationExp
                 , buttonSubtractionExp, buttonSumExp, buttonEqualsExp, buttonDownExp, buttonUpExp
                 , buttonClearAllExp, buttonSeparatorExp, buttonZeroExp, buttonOneExp, buttonTwoExp
-                , buttonThreeExp, buttonFourExp, buttonFiveExp, buttonSixExp
-                , buttonSevenExp, buttonEightExp, buttonNineExp
+                , buttonThreeExp, buttonFourExp, buttonFiveExp, buttonSixExp, buttonSevenExp
+                , buttonEightExp, buttonNineExp, buttonTanExp, buttonCosExp, buttonSenExp
+                , buttonLogExp, buttonExpoenteExp, buttonFactorialExp, buttonRaizQuadradaExp
+                , buttonEulerExp, buttonPiExp
         };
 
-        for (View e : buttons) {
-
-            e.setOnClickListener(this);
-        }
+        for (View e : buttons) e.setOnClickListener(this);
     }
 
     public void onClick(View viewClicked) {

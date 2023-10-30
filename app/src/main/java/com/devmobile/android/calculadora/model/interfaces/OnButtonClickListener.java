@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model;
+package com.devmobile.android.calculadora.model.interfaces;
 
 import android.view.View;
 
