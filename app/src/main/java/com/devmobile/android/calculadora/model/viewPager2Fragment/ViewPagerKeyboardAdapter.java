@@ -41,6 +41,8 @@ public class ViewPagerKeyboardAdapter
         }
     }
 
+
+
     @Override
     public int getItemCount() {
         return 2;

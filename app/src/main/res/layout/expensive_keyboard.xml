@@ -365,18 +365,7 @@
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
-
-        <ImageButton
-            android:id="@+id/buttonUpExp"
-            style="@style/ViewPagerButtonsEspecial"
-            android:layout_width="186dp"
-            android:layout_margin="5dp"
-            android:importantForAccessibility="no"
-            android:padding="15dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_up" />
 
         <ImageButton
             android:id="@+id/buttonDownExp"
@@ -387,6 +376,16 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_down" />
+
+        <ImageButton
+            android:id="@+id/buttonUpExp"
+            style="@style/ViewPagerButtonsEspecial"
+            android:layout_width="186dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_up"/>
 
     </LinearLayout>
 

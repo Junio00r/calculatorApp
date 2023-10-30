@@ -23,7 +23,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/gray_background" />
+        android:background="@color/gray" />
 
     <com.devmobile.android.calculadora.model.CustomEditTextView
         android:id="@+id/editTextViewID"

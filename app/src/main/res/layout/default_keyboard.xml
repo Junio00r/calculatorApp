@@ -13,7 +13,6 @@
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:background="@color/primary"
         android:maxHeight="700dp"
         app:columnCount="4"
@@ -179,7 +178,6 @@
             android:layout_height="73dp"
             android:layout_margin="5dp"
             android:importantForAccessibility="no"
-            android:onClick="excludeCharacter"
             android:padding="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_backspace_1024px"
@@ -249,7 +247,6 @@
             android:layout_height="73dp"
             android:layout_margin="5dp"
             android:importantForAccessibility="no"
-            android:onClick="equalsResult"
             android:padding="23dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_equals_1024px"
@@ -279,7 +276,7 @@
             android:padding="23dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_up"
-            app:layout_column="1"
+            app:layout_column="2"
             app:layout_row="5" />
 
         <ImageButton
@@ -292,7 +289,7 @@
             android:padding="23dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_down"
-            app:layout_column="2"
+            app:layout_column="1"
             app:layout_row="5" />
 
     </androidx.gridlayout.widget.GridLayout>

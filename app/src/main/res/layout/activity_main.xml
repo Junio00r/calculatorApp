@@ -20,4 +20,16 @@
         app:layout_anchor="@id/top_sheet"
         app:layout_anchorGravity="bottom" />
 
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:dotsColor="@color/gray"
+        app:selectedDotColor="@color/gray"
+        app:dotsSize="10dp"
+        app:dotsSpacing="3dp"
+        app:dotsWidthFactor="2.5"
+        app:layout_anchor="@id/viewPager"
+        app:layout_anchorGravity="center|bottom"
+        app:progressMode="true" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

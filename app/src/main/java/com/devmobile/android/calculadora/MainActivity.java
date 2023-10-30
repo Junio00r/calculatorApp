@@ -23,6 +23,10 @@ import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.devmobile.android.calculadora.model.viewPager2Fragment.ViewPagerKeyboardAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     private View expensiveKeyboard;
     private int lastExpressionUpAccessed = 0;
     private int lastExpressionDownAccessed = 0;
+    private DotsIndicator dotsIndicator;
 
     private int buttonBackSpace;
     private int buttonEquals;
@@ -78,6 +83,9 @@ public class MainActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recycle_view_historic);
         topSheetBehavior = findViewById(R.id.top_sheet);
         TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
+        dotsIndicator = findViewById(R.id.dots_indicator);
+
+
 
         LayoutInflater layoutInflater = getLayoutInflater();
         defaultLayout = layoutInflater.inflate(R.layout.default_keyboard, null);
@@ -86,6 +94,9 @@ public class MainActivity extends AppCompatActivity
         viewPager2 = findViewById(R.id.viewPager);
         viewPagerKeyboardAdapter = new ViewPagerKeyboardAdapter(this);
         viewPager2.setAdapter(viewPagerKeyboardAdapter);
+        dotsIndicator.attachTo(viewPager2);
+
+//
 
         // buttonsDefault
         buttonBackSpace = defaultLayout.findViewById(R.id.buttonBackSpace).getId();
@@ -193,19 +204,22 @@ public class MainActivity extends AppCompatActivity
 
     private void upExpression() {
 
-        if (recyclerView.getChildCount() > 0 && lastExpressionUpAccessed == 0) {
+        if (recyclerView.getChildCount() > 0) {
 
-            lastExpressionUpAccessed = recyclerView.getChildCount() - 1;
-        } else {
-            lastExpressionUpAccessed--;
+            if (lastExpressionUpAccessed == 0) {
+
+                lastExpressionUpAccessed = recyclerView.getChildCount() - 1;
+            } else {
+                lastExpressionUpAccessed--;
+            }
+
+            onRemoveOnPositionRecycler(lastExpressionUpAccessed);
         }
-
-        onRemoveOnPositionRecycler(lastExpressionUpAccessed);
     }
 
     private void downExpression() {
-
-        onRemoveOnPositionRecycler(lastExpressionDownAccessed);
+        if (recyclerView.getChildCount() > 0)
+            onRemoveOnPositionRecycler(lastExpressionDownAccessed);
     }
 
     public void copyCalculate() {
