@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:background="@color/primary"
     android:orientation="vertical">
@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:maxHeight="700dp"
-        app:columnCount="4"
+        app:columnCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:rowCount="4">
+        app:rowCount="5">
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
             android:id="@+id/buttonSeven"
@@ -118,6 +118,41 @@
             android:text="@string/tres"
             app:layout_column="2"
             app:layout_row="2" />
+
+        <com.devmobile.android.calculadora.model.BackgroundButtonView
+            android:id="@+id/buttonSeparator"
+            style="@style/EspecialButtonStyle"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/separador"
+            android:text="@string/separador"
+            app:layout_column="2"
+            app:layout_row="3" />
+
+        <ImageButton
+            android:id="@+id/buttonBackSpace"
+            style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_backspace_1024px"
+            app:layout_column="2"
+            app:layout_row="4" />
+
+        <ImageButton
+            android:id="@+id/buttonMenu"
+            style="@style/EspecialButtonStyle"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:importantForAccessibility="no"
+            android:padding="22dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_menu_1024px"
+            app:layout_column="0"
+            app:layout_row="4" />
     </androidx.gridlayout.widget.GridLayout>
 
 </LinearLayout>
