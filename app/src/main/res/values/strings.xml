@@ -38,4 +38,14 @@
     <string name="backspace">backspace</string>
     <string name="eqauals">eqauals</string>
 
+    <!--  Menu strings  -->
+    <string name="aiFunction">aiFunction</string>
+    <string name="lengthConversion">lengthConversion</string>
+    <string name="imcConversion">imcConversion</string>
+    <string name="weightConversion">weightConversion</string>
+    <string name="potencyConversion">powConversion</string>
+    <string name="pressureConversion">pressureConversion</string>
+    <string name="temperatureConversion">temperatureConversion</string>
+    <string name="distanceTime">distanceTime</string>
+
 </resources>

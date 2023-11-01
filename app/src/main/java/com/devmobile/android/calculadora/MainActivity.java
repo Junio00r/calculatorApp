@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,7 @@ import com.devmobile.android.calculadora.model.TopSheetBehavior;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.devmobile.android.calculadora.model.viewPager2Fragment.ViewPagerKeyboardAdapter;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private int lastExpressionUpAccessed = 0;
     private int lastExpressionDownAccessed = 0;
     private DotsIndicator dotsIndicator;
+    private Bundle bundle;
 
     private int buttonBackSpace;
     private int buttonEquals;
@@ -74,6 +73,17 @@ public class MainActivity extends AppCompatActivity
         initReferences();
     }
 
+    private void acessMenu() {
+        bundle = new Bundle();
+        String expressionInEditText = this.customEditTextView.getText().toString();
+        bundle.putString("editTextValue", expressionInEditText);
+//        this.onSaveInstanceState(bundle);
+
+//        this.onStop();
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+    }
+
     @SuppressLint("ResourceType")
     private void initReferences() {
 
@@ -84,7 +94,6 @@ public class MainActivity extends AppCompatActivity
         topSheetBehavior = findViewById(R.id.top_sheet);
         TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
         dotsIndicator = findViewById(R.id.dots_indicator);
-
 
 
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -128,6 +137,14 @@ public class MainActivity extends AppCompatActivity
         // KeyboardAdapter
         this.operationCalculatedAdapter.addItemClickListener(this);
         this.viewPagerKeyboardAdapter.addOnButtonClickListener(this);
+    }
+
+    /**
+     * @param viewButton reference at the clicked button in default Keyboard or expensive keyboard
+     */
+    @Override
+    public void onClickButton(View viewButton) {
+        this.onClick(viewButton);
     }
 
     @Override
@@ -196,10 +213,6 @@ public class MainActivity extends AppCompatActivity
         };
 
         alternativeButtonsHash.addAll(Arrays.asList(buttonsAlternatives));
-    }
-
-    private void acessMenu() {
-
     }
 
     private void upExpression() {
@@ -318,14 +331,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         insertTextInEditText(expressionClicking);
-    }
-
-    /**
-     * @param viewButton reference at the clicked button in default Keyboard or expensive keyboard
-     */
-    @Override
-    public void onClickButton(View viewButton) {
-        this.onClick(viewButton);
     }
 
     // Getters

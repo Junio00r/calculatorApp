@@ -1,19 +1,18 @@
 package com.devmobile.android.calculadora.model.conversores;
 
 import com.devmobile.android.calculadora.model.constanteCalculadora.Numero;
-import com.devmobile.android.calculadora.model.constanteCalculadora.Separador;
 import com.devmobile.android.calculadora.model.constantesTiposConversao.peso.TipoPeso;
 import com.devmobile.android.calculadora.model.interfaces.CopiarOperacao;
 import com.devmobile.android.calculadora.model.interfaces.ExcluirDados;
 
-public class ConversorPeso implements CopiarOperacao, ExcluirDados {
+public class ConversorPesoMassa implements CopiarOperacao, ExcluirDados {
 
     private Double pesoParaConverter;
     private Double pesoConvertido;
     private Numero numero;
     private TipoPeso tipoPeso;
 
-    public ConversorPeso(Numero numero) {
+    public ConversorPesoMassa(Numero numero) {
         this.numero = numero;
     }
 

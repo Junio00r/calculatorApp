@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:orientation="vertical"
+    android:outlineAmbientShadowColor="@color/white"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="30dp">
+
+    <ImageButton
+        android:id="@+id/aiFunction"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/aiFunction"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_ai_64px"
+        app:layout_constraintEnd_toStartOf="@id/lengthConversion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/lengthConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/lengthConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_lenght_64px"
+        app:layout_constraintEnd_toStartOf="@id/imcConversion"
+        app:layout_constraintStart_toEndOf="@id/aiFunction"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imcConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/lengthConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_imc_512px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lengthConversion"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/weightConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/weightConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_weight_512px"
+        app:layout_constraintEnd_toStartOf="@id/potencyConversion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aiFunction" />
+
+    <ImageButton
+        android:id="@+id/potencyConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/potencyConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_potency_512px"
+        app:layout_constraintEnd_toStartOf="@id/pressureConversion"
+        app:layout_constraintStart_toEndOf="@id/weightConversion"
+        app:layout_constraintTop_toBottomOf="@id/lengthConversion" />
+
+    <ImageButton
+        android:id="@+id/pressureConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/pressureConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_pressure_90px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/potencyConversion"
+        app:layout_constraintTop_toBottomOf="@id/imcConversion" />
+
+    <ImageButton
+        android:id="@+id/temperatureConversion"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/temperatureConversion"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_temperature_512px"
+        app:layout_constraintEnd_toStartOf="@id/distanceTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weightConversion" />
+
+    <ImageButton
+        android:id="@+id/distanceTime"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/distanceTime"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_icon_distance_time_500px"
+        app:layout_constraintEnd_toStartOf="@id/other2"
+        app:layout_constraintStart_toEndOf="@id/temperatureConversion"
+        app:layout_constraintTop_toBottomOf="@id/potencyConversion" />
+
+    <ImageButton
+        android:id="@+id/other2"
+        style="@style/MenuButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/distanceTime"
+        android:elevation="20dp"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/distanceTime"
+        app:layout_constraintTop_toBottomOf="@id/pressureConversion" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
