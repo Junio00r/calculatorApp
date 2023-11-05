@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textView;
     private CustomEditTextView customEditTextView;
     private OperationCalculatedAdapter operationCalculatedAdapter;
-    private List<OperationCalculated> operationsCalculated = new LinkedList<>();
+    private final List<OperationCalculated> operationsCalculated = new LinkedList<>();
     private RecyclerView recyclerView;
     private View topSheetBehavior;
     private RecyclerView.LayoutManager layoutManager;
@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void insertTextInEditText(String textInput) {
         int attCursorPositionBefore;
         int attCursorPositionNow;
@@ -235,10 +234,11 @@ public class MainActivity extends AppCompatActivity
             onRemoveOnPositionRecycler(lastExpressionDownAccessed);
     }
 
-    public void copyCalculate() {
+    private void copyCalculate() {
         String messageCopy = "Resultado Copiado!";
         Toast toast = Toast.makeText(this, "Resultado Copiado!", Toast.LENGTH_SHORT);
-        ClipData clipData1 = ClipData.newPlainText(messageCopy, getTextViewId().getText().toString());
+        String result = getTextViewId().getText().toString().replace("=", "");
+        ClipData clipData1 = ClipData.newPlainText(messageCopy, result);
         ClipData clipData2 = ClipData.newPlainText(messageCopy, customEditTextView.getText().toString());
         ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void equalsResult() {
+    private void equalsResult() {
 
         if (!getTextViewId().getText().equals("Invalid Expression!")
                 && !getTextViewId().getText().toString().equals("=")
@@ -291,12 +291,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void expressionClear() {
+    private void expressionClear() {
         customEditTextView.setText("");
         getTextViewId().setText("=");
     }
 
-    public void putHistoric() {
+    private void putHistoric() {
 
         if (getCustomEditTextSize() > 0) {
 

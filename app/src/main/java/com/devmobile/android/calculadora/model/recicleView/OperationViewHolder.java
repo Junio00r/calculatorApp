@@ -19,13 +19,4 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
         this.expression = itemView.findViewById(R.id.expressionHistoric);
         this.resultExpression = itemView.findViewById(R.id.resultExpressionHistoric);
     }
-
-    public TextView getExpression() {
-        return expression;
-    }
-
-    public TextView getResultExpression() {
-        return resultExpression;
-    }
-
 }

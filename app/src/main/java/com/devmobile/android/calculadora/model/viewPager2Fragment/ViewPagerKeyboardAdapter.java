@@ -9,9 +9,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
+import java.util.ArrayList;
+
 public class ViewPagerKeyboardAdapter
         extends FragmentStateAdapter
         implements OnButtonClickListener {
+
     private OnButtonClickListener onButtonClickListener;
 
     public ViewPagerKeyboardAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -40,7 +43,6 @@ public class ViewPagerKeyboardAdapter
             return expensiveKeyboard;
         }
     }
-
 
 
     @Override

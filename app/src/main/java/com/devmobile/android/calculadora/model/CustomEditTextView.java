@@ -42,7 +42,7 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
     public void initView() {
 
         idEditTextView = findViewById(R.id.editTextViewID);
-        idEditTextView.setTextSize(45);
+        idEditTextView.setTextSize(idEditTextView.getTextSize() - 20);
         idEditTextView.setLines(1);
         idEditTextView.setCursorVisible(true);
         idEditTextView.setShowSoftInputOnFocus(false);
@@ -178,4 +178,6 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         super.setTextSelectHandle(textSelectHandle);
 
     }
+
+//    public void getCustomEditTextSize
 }

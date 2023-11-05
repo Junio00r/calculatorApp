@@ -1,20 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:background="@color/primary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.devmobile.android.calculadora.model.spinner.CustomSpinner
+        android:id="@+id/firstSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:spinnerMode="dropdown"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@id/editTextViewID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.devmobile.android.calculadora.model.CustomEditTextView
+        android:id="@+id/editTextViewID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/white"
+        android:importantForAccessibility="no"
+        android:inputType="text|textNoSuggestions|numberDecimal"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toTopOf="@id/secondSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstSpinner" />
+
+    <com.devmobile.android.calculadora.model.spinner.CustomSpinner
+        android:id="@+id/secondSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@id/textViewConverter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextViewID" />
+
+    <TextView
+        android:id="@+id/textViewConverter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/white"
+        android:importantForAccessibility="no"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/line1Converter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondSpinner" />
+
+    <View
+        android:id="@+id/line1Converter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_background"
+        app:layout_constraintBottom_toTopOf="@id/gridLayoutConverter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewConverter" />
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/gridLayoutConverter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:maxHeight="700dp"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
         app:columnCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:rowCount="5">
 
@@ -23,6 +91,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/sete"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/sete"
             app:layout_column="0"
             app:layout_row="0" />
@@ -32,6 +102,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/quatro"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/quatro"
             app:layout_column="0"
             app:layout_row="1" />
@@ -41,6 +113,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/um"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/um"
             app:layout_column="0"
             app:layout_row="2" />
@@ -49,15 +123,20 @@
             android:id="@+id/buttonClearAll"
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/deletar_expressao"
             android:textSize="25sp"
-            app:layout_column="0"
-            app:layout_row="3" />
+            app:layout_column="1"
+            app:layout_row="4" />
 
         <com.devmobile.android.calculadora.model.BackgroundButtonView
             android:id="@+id/buttonEight"
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
+            android:contentDescription="@string/oito"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/oito"
             android:textSize="25sp"
             app:layout_column="1"
@@ -67,8 +146,10 @@
             android:id="@+id/buttonFive"
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
+            android:contentDescription="@string/cinco"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/cinco"
-            android:textSize="25sp"
             app:layout_column="1"
             app:layout_row="1" />
 
@@ -78,6 +159,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/dois"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/dois"
             app:layout_column="1"
             app:layout_row="2" />
@@ -87,6 +170,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/zero"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/zero"
             app:layout_column="1"
             app:layout_row="3" />
@@ -96,6 +181,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/nove"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/nove"
             app:layout_column="2"
             app:layout_row="0" />
@@ -105,6 +192,8 @@
             style="@style/ConfigurationDefaultButton"
             android:layout_margin="5dp"
             android:contentDescription="@string/seis"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/seis"
             app:layout_column="2"
             app:layout_row="1" />
@@ -115,6 +204,8 @@
             android:layout_margin="5dp"
             android:clickable="true"
             android:contentDescription="@string/tres"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/tres"
             app:layout_column="2"
             app:layout_row="2" />
@@ -124,6 +215,8 @@
             style="@style/EspecialButtonStyle"
             android:layout_margin="5dp"
             android:contentDescription="@string/separador"
+            android:minWidth="114dp"
+            android:minHeight="90dp"
             android:text="@string/separador"
             app:layout_column="2"
             app:layout_row="3" />
@@ -131,11 +224,11 @@
         <ImageButton
             android:id="@+id/buttonBackSpace"
             style="@style/EspecialButtonStyle"
-            android:layout_width="88dp"
-            android:layout_height="73dp"
+            android:layout_width="114dp"
+            android:layout_height="90dp"
             android:layout_margin="5dp"
             android:importantForAccessibility="no"
-            android:padding="20dp"
+            android:padding="30dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_backspace_1024px"
             app:layout_column="2"
@@ -144,15 +237,15 @@
         <ImageButton
             android:id="@+id/buttonMenu"
             style="@style/EspecialButtonStyle"
-            android:layout_width="88dp"
-            android:layout_height="73dp"
+            android:layout_width="114dp"
+            android:layout_height="90dp"
             android:layout_margin="5dp"
             android:importantForAccessibility="no"
-            android:padding="22dp"
+            android:padding="32dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_menu_1024px"
             app:layout_column="0"
             app:layout_row="4" />
     </androidx.gridlayout.widget.GridLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

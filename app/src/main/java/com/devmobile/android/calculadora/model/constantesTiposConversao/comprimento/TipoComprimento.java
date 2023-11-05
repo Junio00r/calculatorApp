@@ -1,23 +1,34 @@
 package com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento;
 
 public enum TipoComprimento {
-    NANOMETROS(1),
-    MILIMETROS(2),
-    CENTIMETROS(3),
-    METROS(4),
-    QUILOMETROS(5),
-    POLEGADAS(6),
-    PES(7),
-    JARDAS(8),
-    MILHAS(9);
+    FERMI("FM" ,  " - Fermi"),
+    ANGSTROMS("Å",  " - Angstrom"),
+    NANOMETRES("NM",  " - Nanometre"),
+    MILLIMETRES("MM",  " - Millimetre"),
+    CENTIMETRES("CM",  " - Centimetre"),
+    METRES("M",  " - Metre"),
+    KILOMETRES("KM",  " - Kilometre"),
+    POLEWARDS("POL", " - Poleward"),
+    FEET("FEET",  " - Feet"),
+    YARD("YD",  " - Yards"),
+    MILES("MI",  " - Miles"),
+    LIGHT_YEAR("LY",  " - Light Year");
 
-    private int tipoComprimento;
+    private String abbreviationItem;
+    private String fullName;
 
-    TipoComprimento(int tipoComprimento) {
-        this.tipoComprimento = tipoComprimento;
+    TipoComprimento(String abbreviationItem, String fullName) {
+        this.abbreviationItem = abbreviationItem;
+        this.fullName = fullName;
     }
 
-    public int getTipoComprimento() {
-        return tipoComprimento;
+    public String getAbbreviationItem() {
+        return this.abbreviationItem;
     }
+
+    public String getFullName() {
+        return this.fullName;
+    }
+
+//    public abstract int convert(int valueToConvert);
 }

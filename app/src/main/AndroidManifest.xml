@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.devmobile.android.calculadora">
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,16 @@
 
         <activity
             android:name=".MenuActivity"
+            android:configChanges="keyboardHidden"
+            android:exported="true" />
+
+        <activity
+            android:name=".ActivityConverters"
+            android:configChanges="keyboardHidden"
+            android:exported="true" />
+
+        <activity
+            android:name=".ConversorComprimento"
             android:configChanges="keyboardHidden"
             android:exported="true" />
 
