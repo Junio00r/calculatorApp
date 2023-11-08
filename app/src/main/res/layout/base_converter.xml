@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
@@ -8,55 +9,60 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <com.devmobile.android.calculadora.model.spinner.CustomSpinner
+    <Spinner
         android:id="@+id/firstSpinner"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:spinnerMode="dropdown"
         android:layout_marginStart="240dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@id/editTextViewID"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@id/editTextViewConverter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.devmobile.android.calculadora.model.CustomEditTextView
-        android:id="@+id/editTextViewID"
+    <com.devmobile.android.calculadora.CustomEditTextConverter
+        android:id="@+id/editTextViewConverter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
         android:layout_marginHorizontal="10dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_text_backgroud"
         android:importantForAccessibility="no"
         android:inputType="text|textNoSuggestions|numberDecimal"
         android:textAlignment="textEnd"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/secondSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/firstSpinner" />
 
-    <com.devmobile.android.calculadora.model.spinner.CustomSpinner
+    <Spinner
         android:id="@+id/secondSpinner"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="30dp"
         android:layout_marginStart="240dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:background="@null"
         app:layout_constraintBottom_toTopOf="@id/textViewConverter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextViewID" />
+        app:layout_constraintTop_toBottomOf="@id/editTextViewConverter" />
 
     <TextView
         android:id="@+id/textViewConverter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:lines="1"
+        android:paddingHorizontal="10dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="30dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_text_backgroud"
         android:importantForAccessibility="no"
         android:textAlignment="textEnd"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/line1Converter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

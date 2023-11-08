@@ -9,8 +9,16 @@
     <TextView
         android:id="@+id/icon_item_text_view"
         android:layout_width="70dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
+        android:background="@color/primary"
         android:textSize="18sp"
         android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/icon_arrow_down_512px" />
 
 </LinearLayout>

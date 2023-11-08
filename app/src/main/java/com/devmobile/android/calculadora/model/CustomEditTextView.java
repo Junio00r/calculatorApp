@@ -1,61 +1,31 @@
 package com.devmobile.android.calculadora.model;
 
-import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
 import com.devmobile.android.calculadora.R;
+import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
-    private final int distanceFirstBaseLineToTopHeight = 10;
-    private final int quantityLinesEditText;
-    private final boolean isHasLine = false;
-    private final float sizeText = (float) 40.5;
     private CustomEditTextView idEditTextView;
-    public TextView textView;
-    private String expressionCalculate = "";
+    private TextView textView;
 
     public CustomEditTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomEditTextView);
+
         initView();
-
-        try {
-            quantityLinesEditText = typedArray.getInt(R.styleable.CustomEditTextView_editTestQuantityLines, 1);
-        } finally {
-
-            typedArray.recycle();
-        }
     }
 
-
-    @SuppressLint("ResourceType")
     public void initView() {
 
         idEditTextView = findViewById(R.id.editTextViewID);
-        idEditTextView.setTextSize(idEditTextView.getTextSize() - 20);
-        idEditTextView.setLines(1);
-        idEditTextView.setCursorVisible(true);
+        idEditTextView.setTextSize(idEditTextView.getTextSize() - 10);
         idEditTextView.setShowSoftInputOnFocus(false);
-        idEditTextView.setAutoSizeTextTypeUniformWithConfiguration(
-                10,
-                40,
-                1,
-                TypedValue.COMPLEX_UNIT_DIP
-        );
-
-        idEditTextView.getSelectionStart();
     }
-
 
     @Override
     public boolean onTextContextMenuItem(int id) {
@@ -97,8 +67,8 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         });
     }
 
-    @SuppressLint("SetTextI18n")
-    private void insertResultInTextView(String partialExpression) {
+    public void insertResultInTextView(String partialExpression) {
+        String expressionCalculate = "";
 
         partialExpression = partialExpression.replaceAll("\\s", "");
 
@@ -121,8 +91,8 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
                     textView.setText(resultOperation);
                 } else {
-
-                    textView.setText("=" + resultOperation);
+                    String result = "=" + resultOperation;
+                    textView.setText(result);
                 }
             }
 
@@ -131,53 +101,9 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         }
     }
 
-    // Getters
-    public int textSize() {
-        return idEditTextView.getText().toString().length();
-    }
-
-    // Setters
-    @Override
-    public void setAutoSizeTextTypeUniformWithConfiguration(int autoSizeMinTextSize,
-                                                            int autoSizeMaxTextSize,
-                                                            int autoSizeStepGranularity,
-                                                            int unit) {
-
-        super.setAutoSizeTextTypeUniformWithConfiguration(autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
-
-    }
-
-    @Override
-    public void setTextSize(float size) {
-
-        super.setTextSize(size);
-    }
-
-    @Override
-    public void setMaxWidth(int maxPixels) {
-
-        super.setMaxWidth(maxPixels);
-
-    }
-
     public void setTextView(TextView textView) {
+
         this.textView = textView;
     }
 
-    @Override
-    public void setFirstBaselineToTopHeight(int firstBaselineToTopHeight) {
-
-        super.setFirstBaselineToTopHeight(firstBaselineToTopHeight);
-
-    }
-
-    // Drawable de seleção de texto com o cursor
-    @Override
-    public void setTextSelectHandle(@NonNull Drawable textSelectHandle) {
-
-        super.setTextSelectHandle(textSelectHandle);
-
-    }
-
-//    public void getCustomEditTextSize
 }

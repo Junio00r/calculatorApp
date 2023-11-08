@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -14,23 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.devmobile.android.calculadora.model.CustomEditTextView;
-import com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento.TipoComprimento;
+import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
+import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinner;
-import com.devmobile.android.calculadora.model.spinner.SpinnerAdapter;
+import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ActivityConverters extends Activity
-        implements View.OnClickListener {
-    private CustomEditTextView mCustomEditTextView;
+        implements View.OnClickListener
+        , AdapterView.OnItemSelectedListener
+        , OnItemSpinnerListener
+        , DataInsertEditTextConverter {
+
+    private CustomEditTextConverter mCustomEditTextConverter;
     private TextView mTextView;
-    private CustomSpinner mSpinner1;
+    private Spinner mSpinner1;
     private Spinner mSpinner2;
-    private SpinnerAdapter spinnerAdapter;
+    private CustomSpinnerAdapter spinnerAdapter;
 
     private Button buttonZero;
     private Button buttonOne;
@@ -49,6 +50,9 @@ public class ActivityConverters extends Activity
     private static ArrayList<HashMap<String, String>> SPINNERS_ITEMS = new ArrayList<>();
     private final String[] from = {"abbreviation", "name"};
     private final int[] to =  { R.id.icon_item_text_view, R.id.description_item_text_view };
+    private ConversorComprimento conversorComprimento;
+    private static OnItemSpinnerListener ON_ITEM_SPINNER_LISTENER;
+    private static DataInsertEditTextConverter DATA_INSERT_EDIT_TEXT_CONVERTER;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,8 +66,10 @@ public class ActivityConverters extends Activity
 
         mSpinner1 = findViewById(R.id.firstSpinner);
         mSpinner2 = findViewById(R.id.secondSpinner);
-        mCustomEditTextView = findViewById(R.id.editTextViewID);
+        mCustomEditTextConverter = findViewById(R.id.editTextViewConverter);
         mTextView = findViewById(R.id.textViewConverter);
+        mCustomEditTextConverter.setTextView(mTextView);
+
 
         buttonZero = findViewById(R.id.buttonZero);
         buttonOne = findViewById(R.id.buttonOne);
@@ -86,14 +92,16 @@ public class ActivityConverters extends Activity
 
     private void setAdapter() {
 
-        spinnerAdapter = new SpinnerAdapter(this, SPINNERS_ITEMS, R.layout.spinner_item_single, from, to);
+        spinnerAdapter = new CustomSpinnerAdapter(this, SPINNERS_ITEMS, R.layout.spinner_item_single, from, to);
         mSpinner1.setAdapter(spinnerAdapter);
         mSpinner2.setAdapter(spinnerAdapter);
 
         // When the Spinner is drop Down show a new layout to each child view
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_drop_down);
         mSpinner1.setOnItemSelectedListener(spinnerAdapter);
         mSpinner2.setOnItemSelectedListener(spinnerAdapter);
+        spinnerAdapter.addOnItemSpinnerSelected(this);
+        mCustomEditTextConverter.addDataInsertEditTextConverter(this);
+        String teste = mSpinner1.getOnItemSelectedListener().toString();
     }
 
     public void putItem(ArrayList<HashMap<String, String>> enumsItems) {
@@ -131,14 +139,14 @@ public class ActivityConverters extends Activity
                 if (getCursorStart() < getCustomEditTextSize()
                         && getCursorStart() > 0) {
 
-                    mCustomEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
-                    mCustomEditTextView.setSelection(cursorPosition - 1);
+                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
+                    mCustomEditTextConverter.setSelection(cursorPosition - 1);
 
                 } else {
-                    mCustomEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
+                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
                 }
             } else {
-                mCustomEditTextView.getText().delete(getCursorStart(), getCursorEnd());
+                mCustomEditTextConverter.getText().delete(getCursorStart(), getCursorEnd());
             }
         }
     }
@@ -149,56 +157,85 @@ public class ActivityConverters extends Activity
 
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
-            mCustomEditTextView.setText(textInput);
-            attCursorPositionNow = mCustomEditTextView.getText().length();
+            mCustomEditTextConverter.setText(textInput);
+            attCursorPositionNow = mCustomEditTextConverter.getText().length();
 
-            mCustomEditTextView.setSelection(attCursorPositionNow);
+            mCustomEditTextConverter.setSelection(attCursorPositionNow);
         } else {
 
-            if (mCustomEditTextView.getSelectionEnd() == getCustomEditTextSize()) {
+            if (mCustomEditTextConverter.getSelectionEnd() == getCustomEditTextSize()) {
 
-                mCustomEditTextView.setText(mCustomEditTextView.getText().toString() + textInput);
-                mCustomEditTextView.setSelection(mCustomEditTextView.getText().toString().length());
+                mCustomEditTextConverter.setText(mCustomEditTextConverter.getText().toString() + textInput);
+                mCustomEditTextConverter.setSelection(mCustomEditTextConverter.getText().toString().length());
             } else {
 
-                String textLeftCursor = (String) mCustomEditTextView.getText().toString().subSequence(0, getCursorStart());
-                String textRightCursor = (String) mCustomEditTextView.getText().toString().subSequence(getCursorEnd(), mCustomEditTextView.getText().toString().length());
+                String textLeftCursor = (String) mCustomEditTextConverter.getText().toString().subSequence(0, getCursorStart());
+                String textRightCursor = (String) mCustomEditTextConverter.getText().toString().subSequence(getCursorEnd(), mCustomEditTextConverter.getText().toString().length());
                 String allExpressionInput = textLeftCursor + textInput + textRightCursor;
 
                 attCursorPositionBefore = getCursorEnd();
                 attCursorPositionNow = attCursorPositionBefore + 1;
 
-                mCustomEditTextView.setText(allExpressionInput);
-                mCustomEditTextView.setSelection(attCursorPositionNow);
+                mCustomEditTextConverter.setText(allExpressionInput);
+                mCustomEditTextConverter.setSelection(attCursorPositionNow);
+                mTextView.setText(allExpressionInput);
             }
         }
     }
 
     private void acessMenu() {
         Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     private void expressionClear() {
-        mCustomEditTextView.setText("");
+        mCustomEditTextConverter.setText("");
     }
 
-
     private int getCursorEnd() {
-        return mCustomEditTextView.getSelectionEnd();
+        return mCustomEditTextConverter.getSelectionEnd();
     }
 
     private int getCursorStart() {
-        return mCustomEditTextView.getSelectionStart();
+        return mCustomEditTextConverter.getSelectionStart();
     }
 
     private int getCustomEditTextSize() {
 
-        return mCustomEditTextView.getText().toString().trim().length();
+        return mCustomEditTextConverter.getText().toString().trim().length();
     }
 
     private int getTextSize() {
 
         return mTextView.getText().toString().trim().length();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void addSpinnerItemSelected(OnItemSpinnerListener onItemSpinnerListener) {
+        ON_ITEM_SPINNER_LISTENER = onItemSpinnerListener;
+    }
+
+    public void addDataInsertEditTextConverter(DataInsertEditTextConverter dataInsertEditTextConverter) {
+        DATA_INSERT_EDIT_TEXT_CONVERTER = dataInsertEditTextConverter;
+    }
+
+    @Override
+    public void spinnerItemSelected(String firstSpinnerItemSelected, String secondSpinnerItemSelected) {
+            ON_ITEM_SPINNER_LISTENER.spinnerItemSelected(firstSpinnerItemSelected
+            , secondSpinnerItemSelected);
+    }
+
+    @Override
+    public void dataInsertInEditTextToConverter(String dataToConverter) {
+        DATA_INSERT_EDIT_TEXT_CONVERTER.dataInsertInEditTextToConverter(dataToConverter);
     }
 }

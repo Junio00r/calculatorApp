@@ -32,6 +32,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:paddingHorizontal="10dp"
         android:allowUndo="true"
         android:background="@color/primary"
         android:firstBaselineToTopHeight="10dp"
@@ -42,8 +43,7 @@
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textCursorDrawable="@color/black"
-        android:typeface="sans"
-        app:editTestQuantityLines="1" />
+        android:typeface="sans" />
 
     <TextView
         android:id="@+id/textResultExpression"
