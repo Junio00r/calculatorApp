@@ -2,29 +2,29 @@ package com.devmobile.android.calculadora;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento.TipoComprimento;
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class ConversorComprimento
         implements OnItemSpinnerListener
         , DataInsertEditTextConverter {
     private Context context;
     private final ArrayList<HashMap<String, String>> typesToConverter = new ArrayList<>();
-    private final TipoComprimento[] enumsLength = TipoComprimento.values();
-    private final ActivityConverters activityConverters = new ActivityConverters();;
+    private final TipoComprimento[] enumsUnitiesLength = TipoComprimento.values();
+    private ActivityConverters activityConverters;
     private final int qtdItems = TipoComprimento.values().length;
     private final String[] abbreviationItems = new String[qtdItems];
     private final String[] nameItems = new String[qtdItems];
     private String firstSpinnerItemSelected;
     private String secondSpinnerItemSelected;
-    private String dataToConverter;
+    private int idItemFirstSpinner;
+    private int idItemSecondSpinner;
+
     public ConversorComprimento(Context context) {
         this.context = context;
 
@@ -32,6 +32,7 @@ public class ConversorComprimento
     }
 
     private void init() {
+        this.activityConverters = new ActivityConverters();
         Intent intent = new Intent(context, ActivityConverters.class);
         context.startActivity(intent);
 
@@ -62,31 +63,42 @@ public class ConversorComprimento
 
     private void addAbbreviations() {
         for (int i = 0; i < qtdItems; i++) {
-            abbreviationItems[i] = enumsLength[i].getAbbreviationItem();
+            abbreviationItems[i] = enumsUnitiesLength[i].getAbbreviationItem();
         }
     }
 
     private void addNameItem() {
         for (int i = 0; i < qtdItems; i++) {
-            nameItems[i] = enumsLength[i].getFullName();
+            nameItems[i] = enumsUnitiesLength[i].getFullName();
         }
     }
 
     @Override
-    public void spinnerItemSelected(String firstSpinnerItemSelected, String secondSpinnerItemSelected) {
+    public void spinnerItemSelected(String firstSpinnerItemSelected, int idItemFirstSpinner
+            , String secondSpinnerItemSelected, int idItemSecondSpinner) {
+
         this.firstSpinnerItemSelected = firstSpinnerItemSelected;
         this.secondSpinnerItemSelected = secondSpinnerItemSelected;
+        this.idItemFirstSpinner = idItemFirstSpinner;
+        this.idItemSecondSpinner = idItemSecondSpinner;
     }
 
     @Override
     public void dataInsertInEditTextToConverter(String dataToConverter) {
-        this.dataToConverter = dataToConverter;
+
+        this.converterValueEditText(dataToConverter);
     }
 
-    private void converterValueEditText() {
-        this.secondSpinnerItemSelected = "itemSpinner";
-        this.dataToConverter = "data";
+    private void converterValueEditText(String dataInput) {
+        BigDecimal itemFirstSpinnerValueInMeters =  enumsUnitiesLength[idItemFirstSpinner].getValueInMetre();
+        BigDecimal itemSecondSpinnerValueInMeters =  enumsUnitiesLength[idItemSecondSpinner].getValueInMetre();
+        BigDecimal resultDivision = itemFirstSpinnerValueInMeters.divide(itemSecondSpinnerValueInMeters, 15, RoundingMode.HALF_EVEN);
+        BigDecimal resultFinal = resultDivision.multiply(new BigDecimal(dataInput));
 
-        TipoComprimento.valueOf(secondSpinnerItemSelected);
+        this.passValueConverted(resultFinal.toString());
+    }
+
+    private void passValueConverted(String valueConverted) {
+        activityConverters.putDataInputConverted(valueConverted);
     }
 }

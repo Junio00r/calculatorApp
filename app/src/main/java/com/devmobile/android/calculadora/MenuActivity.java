@@ -1,5 +1,6 @@
 package com.devmobile.android.calculadora;
 
+import android.app.LocaleConfig;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 

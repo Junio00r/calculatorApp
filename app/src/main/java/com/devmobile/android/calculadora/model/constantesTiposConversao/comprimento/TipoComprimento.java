@@ -1,48 +1,54 @@
 package com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento;
 
+import java.math.BigDecimal;
+
 public enum TipoComprimento {
-    METRE("M",  " - Metre", 1),
-    KILOMETRE("KM",  " - Kilometre", Math.pow(10, 3)),
-    CENTIMETRE("CM",  " - Centimetre", Math.pow(10, -2)),
-    MILLIMETRE("MM",  " - Millimetre", Math.pow(10,-3)),
-    MICRON("μM",  " - Micron", Math.pow(10, -6)),
-    NANOMETRE("NM",  " - Nanometre", Math.pow(10, -9)),
-    ANGSTROM("Å",  " - Angstrom", Math.pow(10, -10)),
-    FERMI("FM" ,  " - Femto-metre", Math.pow(10, -15)),
-    FOOT("FOOT",  " - Foot", 0.3048),
-    YARD("YD",  " - Yard",  0.9144),
-    MILE("MI",  " - Miles", Double.parseDouble("1,609.34")),
-    NAUTICAL_MILE("NTM", " - Nautical Mile", Double.parseDouble("1,852")),
-    FATHOM("FA", " - Fathom", 1.8288),
-    CHAIN("CH",  " - Chain", 20.1168),
-    ROD("ROD",  " - Rod", 5.0292),
-    EARTH_RADIUS("ER",  " - Earth Radius", Double.parseDouble("6,371,000")),
-    LUNAR_DISTANCE("LD",  " - Lunar Distance", Double.parseDouble("384,400,000")),
-    ASTRONOMICAL("AU",  " - Astronomical Unit", Double.parseDouble("149,600,000,000")),
-    LIGHT_YEAR("LY",  " - Light Year", Double.parseDouble("9,461,000,000,000,000 ")),
-    PARSEC("PC",  " - Parsec", Double.parseDouble("30,900,000,000,000,000"));
+    FERMI("FM", " - Femtometre", new BigDecimal("0.000000000000001")),
+    ANGSTROM("Å", " - Angstrom", new BigDecimal("0.0000000001")),
+    NANOMETRE("NM", " - Nanometre", new BigDecimal("0.000000001")),
+    MICRON("μM", " - Micrometre ", new BigDecimal("0.000001")),
+    MILLIMETRE("MM", " - Millimetre", new BigDecimal("0.001")),
+    CENTIMETRE("CM", " - Centimetre", new BigDecimal("0.01")),
+    FOOT("FOOT", " - Foot", new BigDecimal("0.3048")),
+    YARD("YD", " - Yard", new BigDecimal("0.9144")),
+    METRE("M", " - Metre", new BigDecimal("1.0")),
+    FATHOM("FA", " - Fathom", new BigDecimal("1.8288")),
+    NAUTICAL_MILE("NTM", " - Nautical Mile", new BigDecimal("1.852")),
+    ROD("ROD", " - Rod", new BigDecimal("5.0292")),
+    CHAIN("CH", " - Chain", new BigDecimal("20.1168")),
+    KILOMETRE("KM", " - Kilometre", new BigDecimal("1000.0")),
+    MILE("MI", " - Miles", new BigDecimal("1609.344")),
+    EARTH_RADIUS("ER", " - Earth Radius", new BigDecimal("6371000.0")),
+    LUNAR_DISTANCE("LD", " - Lunar Distance", new BigDecimal("384400000.0")),
+    ASTRONOMICAL("AU", " - Astronomical Unit", new BigDecimal("149597870700.0")),
+    LIGHT_YEAR("LY", " - Light Year", new BigDecimal("9460730472580800.0")),
+    PARSEC("PC", " - Parsec", new BigDecimal("30856775810000000.0"));
 
-    private String abbreviationItem;
-    private String fullName;
-    private double valueInMetre;
+    private final String abbreviationItem;
+    private final String fullName;
+    private final BigDecimal valueInMeters;
 
-    TipoComprimento(String abbreviationItem, String fullName, double valueInMetre) {
+    TipoComprimento(String abbreviationItem, String fullName, BigDecimal valueInMeters) {
         this.abbreviationItem = abbreviationItem;
         this.fullName = fullName;
-        this.valueInMetre = valueInMetre;
+        this.valueInMeters = valueInMeters;
     }
 
     public String getAbbreviationItem() {
+
         return this.abbreviationItem;
     }
 
     public String getFullName() {
+
         return this.fullName;
     }
 
-    public double getValueInMetre() {
-        return this.valueInMetre;
+    public BigDecimal getValueInMetre() {
+
+        return this.valueInMeters;
     }
 
-//    public abstract int convert(int valueToConvert);
+
+//    public abstract Double convert(int differenceBeteweenItems, String converterToType);
 }

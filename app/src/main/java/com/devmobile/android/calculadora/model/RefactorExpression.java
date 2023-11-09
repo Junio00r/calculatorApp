@@ -15,10 +15,11 @@ public class RefactorExpression {
         expressionForRefactor = expressionForRefactor.replace("×", "*");
         expressionForRefactor = expressionForRefactor.replace("÷", "/");
         expressionForRefactor = expressionForRefactor.replace("x!", "!");
+        expressionForRefactor = expressionForRefactor.replace("e", "*10^");
+        expressionForRefactor = expressionForRefactor.replace("E", String.valueOf(Math.E));
+        expressionForRefactor = expressionForRefactor.replace("euler", String.valueOf(Math.E));
         expressionForRefactor = expressionForRefactor.replace("π", String.valueOf(Math.PI));
         expressionForRefactor = expressionForRefactor.replace("pi", String.valueOf(Math.PI));
-        expressionForRefactor = expressionForRefactor.replace("e", String.valueOf(Math.E));
-        expressionForRefactor = expressionForRefactor.replace("euler", String.valueOf(Math.E));
 
         if (String.valueOf(expressionForRefactor.charAt(expressionForRefactor.length() - 1)).equals("%")) {
 

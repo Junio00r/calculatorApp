@@ -12,9 +12,7 @@ public class CustomEditTextConverter extends CustomEditTextView
     implements DataInsertEditTextConverter {
 
     private CustomEditTextView idEditTextViewConverter;
-    private TextView textView;
     private DataInsertEditTextConverter dataInsertEditTextConverter;
-    private String dataToConverter;
 
     public CustomEditTextConverter(Context context, AttributeSet attrs) {
         super(context, attrs);

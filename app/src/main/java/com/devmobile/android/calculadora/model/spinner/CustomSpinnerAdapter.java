@@ -27,6 +27,8 @@ public class CustomSpinnerAdapter
     private String firstSpinnerItemSelectedAbbreviation;
     private String secondSpinnerItemSelectedAbbreviation;
     private OnItemSpinnerListener onItemSpinnerListener;
+    private int firstSpinnerItemSelectedAbbreviationPosition;
+    private int secondSpinnerItemSelectedAbbreviationPosition;
 
     /**
      * Constructor
@@ -49,6 +51,7 @@ public class CustomSpinnerAdapter
 
         init();
     }
+
     public void addOnItemSpinnerSelected(OnItemSpinnerListener onItemSpinnerListener) {
         this.onItemSpinnerListener = onItemSpinnerListener;
     }
@@ -73,13 +76,20 @@ public class CustomSpinnerAdapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        if (parent.getId() == FIRST_SPINNER_ID)
+        if (parent.getId() == FIRST_SPINNER_ID) {
             this.firstSpinnerItemSelectedAbbreviation = items.get(position).get("abbreviation").toString();
+            this.firstSpinnerItemSelectedAbbreviationPosition = position;
+        }
 
-        if (parent.getId() == SECOND_SPINNER_ID)
+        if (parent.getId() == SECOND_SPINNER_ID) {
             this.secondSpinnerItemSelectedAbbreviation = items.get(position).get("abbreviation").toString();
+            this.secondSpinnerItemSelectedAbbreviationPosition = position;
+        }
 
-        spinnerItemSelected(this.firstSpinnerItemSelectedAbbreviation, this.secondSpinnerItemSelectedAbbreviation);
+        spinnerItemSelected(this.firstSpinnerItemSelectedAbbreviation
+                , this.firstSpinnerItemSelectedAbbreviationPosition
+                , this.secondSpinnerItemSelectedAbbreviation
+                , this.secondSpinnerItemSelectedAbbreviationPosition);
     }
 
     /**
@@ -89,13 +99,20 @@ public class CustomSpinnerAdapter
      */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     @Override
-    public void spinnerItemSelected(String firstSpinnerItemSelected, String secondSpinnerItemSelected) {
+    public void spinnerItemSelected(String firstSpinnerItemSelected, int idItemFirstSpinner
+            , String secondSpinnerItemSelected, int idItemSecondSpinner) {
+
         if (this.onItemSpinnerListener != null)
-            this.onItemSpinnerListener.spinnerItemSelected(this.firstSpinnerItemSelectedAbbreviation
-            , this.secondSpinnerItemSelectedAbbreviation);
+            this.onItemSpinnerListener.spinnerItemSelected(
+                    firstSpinnerItemSelectedAbbreviation
+                    , idItemFirstSpinner
+                    , secondSpinnerItemSelectedAbbreviation
+                    , idItemSecondSpinner
+            );
     }
 }
 

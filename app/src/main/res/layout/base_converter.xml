@@ -51,23 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextViewConverter" />
 
-    <TextView
-        android:id="@+id/textViewConverter"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:lines="1"
-        android:paddingHorizontal="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/edit_text_backgroud"
-        android:importantForAccessibility="no"
-        android:textAlignment="textEnd"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/line1Converter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/secondSpinner" />
-
     <View
         android:id="@+id/line1Converter"
         android:layout_width="match_parent"
@@ -253,5 +236,22 @@
             app:layout_column="0"
             app:layout_row="4" />
     </androidx.gridlayout.widget.GridLayout>
+
+    <TextView
+        android:id="@+id/textViewConverter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:lines="1"
+        android:paddingHorizontal="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/edit_text_backgroud"
+        android:importantForAccessibility="no"
+        android:textAlignment="textEnd"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/line1Converter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

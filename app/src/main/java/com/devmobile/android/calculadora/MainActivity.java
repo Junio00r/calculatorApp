@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, OnItemClickListener, OnButtonClickListener {
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Locale.setDefault(new Locale("en", "US"));
 
         // Inflating all layouts in activity_main.xml
         setContentView(R.layout.activity_main);
