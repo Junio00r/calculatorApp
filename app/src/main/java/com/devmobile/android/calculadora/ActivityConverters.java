@@ -3,20 +3,20 @@ package com.devmobile.android.calculadora;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
+
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ActivityConverters extends Activity
         implements View.OnClickListener
@@ -65,7 +65,6 @@ public class ActivityConverters extends Activity
         mSpinner2 = findViewById(R.id.secondSpinner);
         mCustomEditTextConverter = findViewById(R.id.editTextViewConverter);
         mCustomEditTextConverter.setTextView(mTextView);
-        System.out.println(mTextView);
 
 
         buttonZero = findViewById(R.id.buttonZero);

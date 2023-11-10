@@ -2,9 +2,13 @@ package com.devmobile.android.calculadora;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+
 import com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento.TipoComprimento;
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
+
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -16,7 +20,6 @@ public class ConversorComprimento
     private Context context;
     private final ArrayList<HashMap<String, String>> typesToConverter = new ArrayList<>();
     private final TipoComprimento[] enumsUnitiesLength = TipoComprimento.values();
-    private ActivityConverters activityConverters;
     private final int qtdItems = TipoComprimento.values().length;
     private final String[] abbreviationItems = new String[qtdItems];
     private final String[] nameItems = new String[qtdItems];
@@ -24,6 +27,8 @@ public class ConversorComprimento
     private String secondSpinnerItemSelected;
     private int idItemFirstSpinner;
     private int idItemSecondSpinner;
+    private ActivityConverters activityConvertersInstance;
+
 
     public ConversorComprimento(Context context) {
         this.context = context;
@@ -32,22 +37,32 @@ public class ConversorComprimento
     }
 
     private void init() {
-        this.activityConverters = new ActivityConverters();
         Intent intent = new Intent(context, ActivityConverters.class);
         context.startActivity(intent);
+        Class<?> myClass;
+
+        try {
+
+            myClass = Class.forName("ConversorComprimento");
+            myClass.getDeclaredConstructor().newInstance();
+
+            Object teste = myClass.getMethod("toStringtt").invoke(ConversorComprimento.this);
+            teste.toString();
+
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
+                 IllegalAccessException | InstantiationException e) {
+
+        }
 
         addAbbreviations();
         addNameItem();
         addTypesOfConverter();
 
-        activityConverters.putItem(typesToConverter);
-        activityConverters.addSpinnerItemSelected(this);
-        activityConverters.addDataInsertEditTextConverter(this);
+//        activityConvertersInstance.putItem(typesToConverter);
+//        activityConvertersInstance.addSpinnerItemSelected(this);
+//        activityConvertersInstance.addDataInsertEditTextConverter(this);
     }
 
-    public void convertValue(Double value) {
-
-    }
 
     private void addTypesOfConverter() {
 
@@ -90,8 +105,8 @@ public class ConversorComprimento
     }
 
     private void converterValueEditText(String dataInput) {
-        BigDecimal itemFirstSpinnerValueInMeters =  enumsUnitiesLength[idItemFirstSpinner].getValueInMetre();
-        BigDecimal itemSecondSpinnerValueInMeters =  enumsUnitiesLength[idItemSecondSpinner].getValueInMetre();
+        BigDecimal itemFirstSpinnerValueInMeters = enumsUnitiesLength[idItemFirstSpinner].getValueInMetre();
+        BigDecimal itemSecondSpinnerValueInMeters = enumsUnitiesLength[idItemSecondSpinner].getValueInMetre();
         BigDecimal resultDivision = itemFirstSpinnerValueInMeters.divide(itemSecondSpinnerValueInMeters, 15, RoundingMode.HALF_EVEN);
         BigDecimal resultFinal = resultDivision.multiply(new BigDecimal(dataInput));
 
@@ -99,6 +114,10 @@ public class ConversorComprimento
     }
 
     private void passValueConverted(String valueConverted) {
-        activityConverters.putDataInputConverted(valueConverted);
+        activityConvertersInstance.putDataInputConverted(valueConverted);
+    }
+
+    public void toStringtt() {
+        System.out.println("teste");
     }
 }
