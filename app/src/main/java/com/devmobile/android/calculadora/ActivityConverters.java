@@ -9,12 +9,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,7 +29,6 @@ public class ActivityConverters extends Activity
     private Spinner mSpinner1;
     private Spinner mSpinner2;
     private CustomSpinnerAdapter spinnerAdapter;
-
     private Button buttonZero;
     private Button buttonOne;
     private Button buttonTwo;
@@ -43,12 +43,10 @@ public class ActivityConverters extends Activity
     private Button buttonSeparator;
     private ImageButton buttonBackspace;
     private ImageButton buttonMenu;
-    private static ArrayList<HashMap<String, String>> SPINNERS_ITEMS = new ArrayList<>();
     private final String[] from = {"abbreviation", "name"};
     private final int[] to = {R.id.icon_item_text_view, R.id.description_item_text_view};
-    private ConversorComprimento conversorComprimento;
-    private static OnItemSpinnerListener ON_ITEM_SPINNER_LISTENER;
-    private static DataInsertEditTextConverter DATA_INSERT_EDIT_TEXT_CONVERTER;
+    private ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
+    private Converter converter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +57,10 @@ public class ActivityConverters extends Activity
     }
 
     private void initReferences() {
+
+        Bundle bundle = getIntent().getExtras();
+        String className = (String) bundle.get("class_name");
+        setConverterType(className);
 
         mTextView = findViewById(R.id.textViewConverter);
         mSpinner1 = findViewById(R.id.firstSpinner);
@@ -88,22 +90,19 @@ public class ActivityConverters extends Activity
 
     private void setAdapter() {
 
-        spinnerAdapter = new CustomSpinnerAdapter(this, SPINNERS_ITEMS, R.layout.spinner_item_single, from, to);
+        spinnerAdapter = new CustomSpinnerAdapter(this, spinnerItems, R.layout.spinner_item_single, from, to);
         mSpinner1.setAdapter(spinnerAdapter);
         mSpinner2.setAdapter(spinnerAdapter);
 
-        // When the Spinner is drop Down show a new layout to each child view
+        // When the Spinner drop Down is show a new layout to each child view
         mSpinner1.setOnItemSelectedListener(spinnerAdapter);
         mSpinner2.setOnItemSelectedListener(spinnerAdapter);
         spinnerAdapter.addOnItemSpinnerSelected(this);
         mCustomEditTextConverter.addDataInsertEditTextConverter(this);
     }
 
-    public void putItem(ArrayList<HashMap<String, String>> enumsItems) {
-        SPINNERS_ITEMS = enumsItems;
-    }
-
     private void setOnClickListener() {
+
         View[] buttons = {
                 buttonZero, buttonOne, buttonTwo, buttonThree, buttonFour
                 , buttonFive, buttonSix, buttonSeven, buttonEight, buttonNine
@@ -115,6 +114,7 @@ public class ActivityConverters extends Activity
 
     @Override
     public void onClick(View viewButton) {
+
         if (buttonBackspace == viewButton) {
             excludeCharacter();
         } else if (buttonClearAll == viewButton) {
@@ -179,20 +179,23 @@ public class ActivityConverters extends Activity
     }
 
     private void acessMenu() {
+
         Intent intent = new Intent(this, MenuActivity.class);
         this.startActivity(intent);
-
     }
 
     private void expressionClear() {
+
         mCustomEditTextConverter.setText("");
     }
 
     private int getCursorEnd() {
+
         return mCustomEditTextConverter.getSelectionEnd();
     }
 
     private int getCursorStart() {
+
         return mCustomEditTextConverter.getSelectionStart();
     }
 
@@ -206,33 +209,43 @@ public class ActivityConverters extends Activity
         return mTextView.getText().toString().trim().length();
     }
 
-    public void addSpinnerItemSelected(OnItemSpinnerListener onItemSpinnerListener) {
-        ON_ITEM_SPINNER_LISTENER = onItemSpinnerListener;
-    }
-
-    public void addDataInsertEditTextConverter(DataInsertEditTextConverter dataInsertEditTextConverter) {
-        DATA_INSERT_EDIT_TEXT_CONVERTER = dataInsertEditTextConverter;
-    }
-
     @Override
-    public void spinnerItemSelected(String firstSpinnerItemSelected, int idItemFirstSpinner
-            , String secondSpinnerItemSelected, int idItemSecondSpinner) {
+    public void spinnerItemSelected(String firstSpinnerItemSelected, Integer idItemFirstSpinner
+            , String secondSpinnerItemSelected, Integer idItemSecondSpinner) {
 
-        ON_ITEM_SPINNER_LISTENER.spinnerItemSelected(firstSpinnerItemSelected
+        converter.addSpinnerSelected(
+                firstSpinnerItemSelected
                 , idItemFirstSpinner
                 , secondSpinnerItemSelected
-                , idItemSecondSpinner);
+                , idItemSecondSpinner
+        );
+
+        addResultInTextView(mCustomEditTextConverter.getText().toString());
+
     }
 
     @Override
     public void dataInsertInEditTextToConverter(String dataToConverter) {
-        DATA_INSERT_EDIT_TEXT_CONVERTER.dataInsertInEditTextToConverter(dataToConverter);
+
+        addResultInTextView(dataToConverter);
     }
 
-    public void putDataInputConverted(String dataConverted) {
-        String text = String.format("0.2f", dataConverted);
+    private void setConverterType(@NonNull String converterClassName) {
 
-        if (mTextView != null)
-            mTextView.setText(dataConverted);
+        if (converterClassName.equals(ConversorComprimento.class.getName())) {
+
+            // Polimorphism
+            converter = ConversorComprimento.getInstance();
+            spinnerItems = converter.getTypesToConverter();
+        }
+    }
+
+    private void addResultInTextView(String valueToConvert) {
+
+        if (!valueToConvert.trim().equals("")) {
+
+            String valueConverted = converter.getValueConverted(valueToConvert);
+            mTextView.setText(mCustomEditTextConverter.getText() + valueConverted);
+        }
     }
 }

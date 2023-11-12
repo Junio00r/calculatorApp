@@ -4,12 +4,17 @@ import android.app.LocaleConfig;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.apache.logging.log4j.spi.ObjectThreadContextMap;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,25 +62,40 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (v == aiButton) {
 
         } else if (v == lengthConversion) {
-            new ConversorComprimento(this);
+
+            initConverterClass(ConversorComprimento.class);
         } else if (v == imcButton) {
 
 
         } else if (v == weightButton) {
 
+
         } else if (v == potencyButton) {
+
 
         } else if (v == pressureButton) {
 
+
         } else if (v == temperatureButton) {
+
 
         } else {
 
         }
     }
 
-//    private void initConverter(Object object) {
-//        Intent intent = new Intent(this, object.getClass());
-//        startActivity(intent);
-//    }
+    private void initConverterClass(Class<?> fromClass) {
+        Bundle bundle = new Bundle();
+
+        bundle.putString("class_name", fromClass.getName());
+        initConverterActivity(bundle);
+    }
+
+    private void initConverterActivity(Bundle bundleWithParcelable) {
+
+        Intent intent = new Intent(this, ActivityConverters.class);
+        intent.putExtras(bundleWithParcelable);
+
+        startActivity(intent);
+    }
 }

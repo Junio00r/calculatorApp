@@ -22,8 +22,8 @@ public class CustomSpinnerAdapter
         implements AdapterView.OnItemSelectedListener
         , OnItemSpinnerListener {
     private List<? extends Map<String, ?>> items;
-    private final int FIRST_SPINNER_ID = R.id.firstSpinner;
-    private final int SECOND_SPINNER_ID = R.id.secondSpinner;
+    private final Integer FIRST_SPINNER_ID = R.id.firstSpinner;
+    private final Integer SECOND_SPINNER_ID = R.id.secondSpinner;
     private String firstSpinnerItemSelectedAbbreviation;
     private String secondSpinnerItemSelectedAbbreviation;
     private OnItemSpinnerListener onItemSpinnerListener;
@@ -103,8 +103,8 @@ public class CustomSpinnerAdapter
     }
 
     @Override
-    public void spinnerItemSelected(String firstSpinnerItemSelected, int idItemFirstSpinner
-            , String secondSpinnerItemSelected, int idItemSecondSpinner) {
+    public void spinnerItemSelected(String firstSpinnerItemSelected, Integer idItemFirstSpinner
+            , String secondSpinnerItemSelected, Integer idItemSecondSpinner) {
 
         if (this.onItemSpinnerListener != null)
             this.onItemSpinnerListener.spinnerItemSelected(
