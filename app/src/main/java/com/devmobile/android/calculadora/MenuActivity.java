@@ -1,25 +1,16 @@
 package com.devmobile.android.calculadora;
 
-import android.app.LocaleConfig;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.apache.logging.log4j.spi.ObjectThreadContextMap;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Locale;
+import com.devmobile.android.calculadora.model.conversores.ConversorComprimento;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Context context;
     private ImageButton aiButton;
     private ImageButton lengthConversion;
     private ImageButton imcButton;
@@ -81,10 +72,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
 
+
         }
     }
 
-    private void initConverterClass(Class<?> fromClass) {
+    private void initConverterClass(@NonNull Class<?> fromClass) {
         Bundle bundle = new Bundle();
 
         bundle.putString("class_name", fromClass.getName());

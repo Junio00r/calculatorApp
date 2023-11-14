@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.devmobile.android.calculadora.R;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
@@ -79,6 +77,7 @@ public class ExpensiveKeyboard
     }
 
     public void addOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
+
         this.onButtonClickListener = onButtonClickListener;
     }
 
@@ -138,8 +137,7 @@ public class ExpensiveKeyboard
     }
 
     public void onClick(View viewClicked) {
-        if (onButtonClickListener != null) {
-            onButtonClickListener.onClickButton(viewClicked);
-        }
+
+        if (onButtonClickListener != null) onButtonClickListener.onClickButton(viewClicked);
     }
 }

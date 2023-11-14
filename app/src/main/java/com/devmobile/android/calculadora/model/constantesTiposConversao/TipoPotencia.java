@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model.constantesTiposConversao.potencia;
+package com.devmobile.android.calculadora.model.constantesTiposConversao;
 
 public enum TipoPotencia {
     WATTS(1),

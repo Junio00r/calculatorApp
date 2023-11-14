@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.devmobile.android.calculadora.model.CustomEditTextConverter;
+import com.devmobile.android.calculadora.model.conversores.ConversorComprimento;
+import com.devmobile.android.calculadora.model.conversores.Converter;
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,7 +31,6 @@ public class ActivityConverters extends Activity
     private TextView mTextView;
     private Spinner mSpinner1;
     private Spinner mSpinner2;
-    private CustomSpinnerAdapter spinnerAdapter;
     private Button buttonZero;
     private Button buttonOne;
     private Button buttonTwo;
@@ -68,7 +70,6 @@ public class ActivityConverters extends Activity
         mCustomEditTextConverter = findViewById(R.id.editTextViewConverter);
         mCustomEditTextConverter.setTextView(mTextView);
 
-
         buttonZero = findViewById(R.id.buttonZero);
         buttonOne = findViewById(R.id.buttonOne);
         buttonTwo = findViewById(R.id.buttonTwo);
@@ -90,7 +91,7 @@ public class ActivityConverters extends Activity
 
     private void setAdapter() {
 
-        spinnerAdapter = new CustomSpinnerAdapter(this, spinnerItems, R.layout.spinner_item_single, from, to);
+        CustomSpinnerAdapter spinnerAdapter = new CustomSpinnerAdapter(this, spinnerItems, R.layout.spinner_item_single, from, to);
         mSpinner1.setAdapter(spinnerAdapter);
         mSpinner2.setAdapter(spinnerAdapter);
 
@@ -152,7 +153,7 @@ public class ActivityConverters extends Activity
 
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
-            mCustomEditTextConverter.setText(textInput);
+            mCustomEditTextConverter.append(textInput);
             attCursorPositionNow = mCustomEditTextConverter.getText().length();
 
             mCustomEditTextConverter.setSelection(attCursorPositionNow);
@@ -160,7 +161,7 @@ public class ActivityConverters extends Activity
 
             if (mCustomEditTextConverter.getSelectionEnd() == getCustomEditTextSize()) {
 
-                mCustomEditTextConverter.setText(mCustomEditTextConverter.getText().toString() + textInput);
+                mCustomEditTextConverter.append(textInput);
                 mCustomEditTextConverter.setSelection(mCustomEditTextConverter.getText().toString().length());
             } else {
 
@@ -171,9 +172,9 @@ public class ActivityConverters extends Activity
                 attCursorPositionBefore = getCursorEnd();
                 attCursorPositionNow = attCursorPositionBefore + 1;
 
-                mCustomEditTextConverter.setText(allExpressionInput);
+                mCustomEditTextConverter.append(allExpressionInput);
                 mCustomEditTextConverter.setSelection(attCursorPositionNow);
-                mTextView.setText(allExpressionInput);
+//                mTextView.append(allExpressionInput);
             }
         }
     }
@@ -187,6 +188,7 @@ public class ActivityConverters extends Activity
     private void expressionClear() {
 
         mCustomEditTextConverter.setText("");
+        mTextView.setText("");
     }
 
     private int getCursorEnd() {
@@ -221,13 +223,12 @@ public class ActivityConverters extends Activity
         );
 
         addResultInTextView(mCustomEditTextConverter.getText().toString());
-
     }
 
     @Override
     public void dataInsertInEditTextToConverter(String dataToConverter) {
 
-        addResultInTextView(dataToConverter);
+        addResultInTextView(mCustomEditTextConverter.getText().toString());
     }
 
     private void setConverterType(@NonNull String converterClassName) {
@@ -245,7 +246,7 @@ public class ActivityConverters extends Activity
         if (!valueToConvert.trim().equals("")) {
 
             String valueConverted = converter.getValueConverted(valueToConvert);
-            mTextView.setText(mCustomEditTextConverter.getText() + valueConverted);
+            mTextView.setText(valueConverted);
         }
     }
 }

@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.devmobile.android.calculadora.R;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 
@@ -67,10 +65,11 @@ public class DefaultKeyboard extends Fragment
     }
 
     public void addOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
+
         this.onButtonClickListener = onButtonClickListener;
     }
 
-    public void initReferences(View v) {
+    public void initReferences(@NonNull View v) {
         buttonPercent = v.findViewById(R.id.buttonPercent);
         buttonOpenParenthesis = v.findViewById(R.id.buttonOpenParenthesis);
         buttonCloseParenthesis = v.findViewById(R.id.buttonCloseParenthesis);
@@ -107,16 +106,12 @@ public class DefaultKeyboard extends Fragment
                 , buttonSeven, buttonEight, buttonNine
         };
 
-        for (View e : buttons) {
-
-            e.setOnClickListener(this);
-        }
+        for (View e : buttons) e.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View viewClicked) {
-        if (onButtonClickListener != null) {
-            onButtonClickListener.onClickButton(viewClicked);
-        }
+
+        if (onButtonClickListener != null)  onButtonClickListener.onClickButton(viewClicked);
     }
 }

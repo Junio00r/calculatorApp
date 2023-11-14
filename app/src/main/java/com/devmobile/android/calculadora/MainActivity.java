@@ -1,22 +1,20 @@
 package com.devmobile.android.calculadora;
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 import com.devmobile.android.calculadora.model.interfaces.OnItemClickListener;
@@ -25,12 +23,10 @@ import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.devmobile.android.calculadora.model.viewPager2Fragment.ViewPagerKeyboardAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, OnItemClickListener, OnButtonClickListener {
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Locale.setDefault(new Locale("en", "US"));
 
         // Inflating all layouts in activity_main.xml
         setContentView(R.layout.activity_main);
@@ -79,19 +74,18 @@ public class MainActivity extends AppCompatActivity
         bundle = new Bundle();
         String expressionInEditText = this.customEditTextView.getText().toString();
         bundle.putString("editTextValue", expressionInEditText);
-//        this.onSaveInstanceState(bundle);
 
-//        this.onStop();
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 
-    @SuppressLint("ResourceType")
     private void initReferences() {
 
         customEditTextView = findViewById(R.id.editTextViewID);
         textView = findViewById(R.id.textResultExpression);
         customEditTextView.setTextView(textView);
+        textView.setMovementMethod(new ScrollingMovementMethod());
+
         recyclerView = findViewById(R.id.recycle_view_historic);
         topSheetBehavior = findViewById(R.id.top_sheet);
         TopSheetBehavior.from(topSheetBehavior).setState(TopSheetBehavior.STATE_COLLAPSED);
@@ -106,8 +100,6 @@ public class MainActivity extends AppCompatActivity
         viewPagerKeyboardAdapter = new ViewPagerKeyboardAdapter(this);
         viewPager2.setAdapter(viewPagerKeyboardAdapter);
         dotsIndicator.attachTo(viewPager2);
-
-//
 
         // buttonsDefault
         buttonBackSpace = defaultLayout.findViewById(R.id.buttonBackSpace).getId();
@@ -146,6 +138,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void onClickButton(View viewButton) {
+
         this.onClick(viewButton);
     }
 
@@ -196,7 +189,7 @@ public class MainActivity extends AppCompatActivity
                 attCursorPositionBefore = getCursorEnd();
                 attCursorPositionNow = attCursorPositionBefore + 1;
 
-                customEditTextView.setText(allExpressionInput);
+                customEditTextView.append(allExpressionInput);
                 customEditTextView.setSelection(attCursorPositionNow);
             }
         }
@@ -294,8 +287,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void expressionClear() {
-        customEditTextView.setText("");
-        getTextViewId().setText("=");
+
+        this.customEditTextView.setText("");
+        this.textView.setText("");
     }
 
     private void putHistoric() {

@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model.constantesTiposConversao.temperatura;
+package com.devmobile.android.calculadora.model.constantesTiposConversao;
 
 public enum TipoTemperatura {
     CELSIUS(1),

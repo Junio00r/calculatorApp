@@ -2,18 +2,11 @@ package com.devmobile.android.calculadora.model.spinner;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
-
-import com.devmobile.android.calculadora.ActivityConverters;
+import androidx.annotation.NonNull;
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.interfaces.OnItemClickListener;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +14,10 @@ public class CustomSpinnerAdapter
         extends SimpleAdapter
         implements AdapterView.OnItemSelectedListener
         , OnItemSpinnerListener {
-    private List<? extends Map<String, ?>> items;
-    private final Integer FIRST_SPINNER_ID = R.id.firstSpinner;
-    private final Integer SECOND_SPINNER_ID = R.id.secondSpinner;
+
+    private final List<? extends Map<String, ?>> items;
+    private final Integer firstSpinnerId = R.id.firstSpinner;
+    private final Integer secondSpinnerId = R.id.secondSpinner;
     private String firstSpinnerItemSelectedAbbreviation;
     private String secondSpinnerItemSelectedAbbreviation;
     private OnItemSpinnerListener onItemSpinnerListener;
@@ -52,10 +46,6 @@ public class CustomSpinnerAdapter
         init();
     }
 
-    public void addOnItemSpinnerSelected(OnItemSpinnerListener onItemSpinnerListener) {
-        this.onItemSpinnerListener = onItemSpinnerListener;
-    }
-
     private void init() {
 
         this.setDropDownViewResource(R.layout.spinner_drop_down_item);
@@ -67,6 +57,11 @@ public class CustomSpinnerAdapter
         super.setDropDownViewResource(resource);
     }
 
+    public void addOnItemSpinnerSelected(OnItemSpinnerListener onItemSpinnerListener) {
+
+        this.onItemSpinnerListener = onItemSpinnerListener;
+    }
+
     /**
      * @param parent   The AdapterView where the selection happened
      * @param view     The view within the AdapterView that was clicked
@@ -74,14 +69,16 @@ public class CustomSpinnerAdapter
      * @param id       The row id of the item that is selected
      */
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(@NonNull AdapterView<?> parent, View view, int position, long id) {
 
-        if (parent.getId() == FIRST_SPINNER_ID) {
+        if (parent.getId() == firstSpinnerId) {
+
             this.firstSpinnerItemSelectedAbbreviation = items.get(position).get("abbreviation").toString();
             this.firstSpinnerItemSelectedAbbreviationPosition = position;
         }
 
-        if (parent.getId() == SECOND_SPINNER_ID) {
+        if (parent.getId() == secondSpinnerId) {
+
             this.secondSpinnerItemSelectedAbbreviation = items.get(position).get("abbreviation").toString();
             this.secondSpinnerItemSelectedAbbreviationPosition = position;
         }
@@ -106,13 +103,15 @@ public class CustomSpinnerAdapter
     public void spinnerItemSelected(String firstSpinnerItemSelected, Integer idItemFirstSpinner
             , String secondSpinnerItemSelected, Integer idItemSecondSpinner) {
 
-        if (this.onItemSpinnerListener != null)
+        if (this.onItemSpinnerListener != null) {
+
             this.onItemSpinnerListener.spinnerItemSelected(
                     firstSpinnerItemSelectedAbbreviation
                     , idItemFirstSpinner
                     , secondSpinnerItemSelectedAbbreviation
                     , idItemSecondSpinner
             );
+        }
     }
 }
 

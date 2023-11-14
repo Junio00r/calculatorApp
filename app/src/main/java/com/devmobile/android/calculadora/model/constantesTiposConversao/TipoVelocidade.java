@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model.constantesTiposConversao.tempoPorVelocidade;
+package com.devmobile.android.calculadora.model.constantesTiposConversao;
 
 public enum TipoVelocidade {
     QUILOMETROS_HORA(1),

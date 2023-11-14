@@ -1,11 +1,7 @@
 package com.devmobile.android.calculadora.model;
 
-import static android.os.Build.VERSION_CODES.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;

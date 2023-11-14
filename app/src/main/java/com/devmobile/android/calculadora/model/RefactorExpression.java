@@ -1,16 +1,20 @@
 package com.devmobile.android.calculadora.model;
 
+import androidx.annotation.NonNull;
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class RefactorExpression {
     public static String LAST_INPUT_CHAR;
-
+    private static DecimalFormat decimalFormat = null;
+    @NonNull
     public static String getRefactoredInputExpression(String expressionNoRefactor) {
 
-        return formattedExpression(expressionNoRefactor);
+        return getFormattedExpression(expressionNoRefactor);
     }
 
-    public static String formattedExpression(String expressionForRefactor) {
+    @NonNull
+    public static String getFormattedExpression(String expressionForRefactor) {
 
         expressionForRefactor = expressionForRefactor.replace("×", "*");
         expressionForRefactor = expressionForRefactor.replace("÷", "/");
@@ -26,8 +30,7 @@ public class RefactorExpression {
             switch (LAST_INPUT_CHAR) {
                 case "+":
                 case "-":
-                    expressionForRefactor = expressionForRefactor.replace(LAST_INPUT_CHAR, LAST_INPUT_CHAR + "(" );
-                    expressionForRefactor = expressionForRefactor.replace("%", "*10/100)" );
+                    expressionForRefactor = expressionForRefactor.replace("%", "*10/100" );
                     break;
                 case "÷":
                 case "/":
@@ -37,25 +40,23 @@ public class RefactorExpression {
                     expressionForRefactor = expressionForRefactor.replace("%", "/100" );
                     break;
             }
-        }
 
-        if (isEUA()) {
-            expressionForRefactor = expressionForRefactor.replace(",", ".");
-        } else {
-            expressionForRefactor = expressionForRefactor.replace(".", ",");
         }
 
         return expressionForRefactor;
     }
 
-    public static String formattedFloatingResult(Object resultExpression) {
-        final double resultExpressionConvertedFloating = (double) resultExpression;
+    public static String getDecimalFormatted(Object obj) {
 
-        if (resultExpressionConvertedFloating == (int) resultExpressionConvertedFloating) {
-            return String.valueOf((int) resultExpressionConvertedFloating);
+        if (decimalFormat == null) {
+            if (isEUA()) {
+                decimalFormat = new DecimalFormat("#,###.#####");
+            } else {
+                decimalFormat = new DecimalFormat("#.###,#####");
+            }
         }
 
-        return String.valueOf(resultExpressionConvertedFloating);
+        return decimalFormat.format(obj);
     }
 
     public static boolean isEUA() {

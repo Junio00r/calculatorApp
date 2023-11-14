@@ -2,40 +2,49 @@ package com.devmobile.android.calculadora.model;
 
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import com.devmobile.android.calculadora.R;
-import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
+import com.singularsys.jep.JepException;
 
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
-    private CustomEditTextView idEditTextView;
-    private TextView textView;
+    protected TextView textView;
+    protected CustomEditTextView customEditTextView;
 
     public CustomEditTextView(Context context, AttributeSet attrs) {
+
         super(context, attrs);
 
-        initView();
+        init();
     }
 
-    public void initView() {
+    protected void init() {
 
-        idEditTextView = findViewById(R.id.editTextViewID);
-        idEditTextView.setTextSize(idEditTextView.getTextSize() - 10);
-        idEditTextView.setShowSoftInputOnFocus(false);
+        customEditTextView = findViewById(R.id.editTextViewID);
+        textView = findViewById(R.id.textResultExpression);
+        setSpecifications();
     }
 
+    protected void setSpecifications() {
+
+        customEditTextView.setTextSize(customEditTextView.getTextSize() - 10);
+        customEditTextView.setShowSoftInputOnFocus(false);
+    }
+
+    // finally
     @Override
     public boolean onTextContextMenuItem(int id) {
+
         ClipboardManager clipboardMenu = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
 
         if (id == android.R.id.paste
                 && clipboardMenu != null
                 && !clipboardMenu.getPrimaryClip().toString().equals(" ")) {
 
-            idEditTextView.setText(clipboardMenu
+            customEditTextView.setText(clipboardMenu
                     .getPrimaryClip()
                     .getItemAt(0)
                     .getText().toString());
@@ -46,9 +55,9 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         return false;
     }
 
-
     @Override
     public void addTextChangedListener(TextWatcher watcher) {
+
         super.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,43 +76,46 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
         });
     }
 
-    public void insertResultInTextView(String partialExpression) {
+    protected void insertResultInTextView(@NonNull String data) {
+
+        String fullExpression = data.replaceAll("\\s", "");
+        String lastChar = lastChar(fullExpression);
         String expressionCalculate = "";
 
-        partialExpression = partialExpression.replaceAll("\\s", "");
+        if (!fullExpression.isEmpty()) {
 
-        if (!partialExpression.isEmpty()) {
+            if (CharCheck.lastCharIsOperator(lastChar)) {
 
-            if (ExpressionInputCheck.isOperator(partialExpression)
-                    && !String.valueOf(partialExpression.charAt(partialExpression.length() - 1)).equals("%")
-                    && !String.valueOf(partialExpression.charAt(partialExpression.length() - 1)).equals("(")
-                    && !String.valueOf(partialExpression.charAt(partialExpression.length() - 1)).equals(")")) {
-
-                expressionCalculate = partialExpression;
-                RefactorExpression.LAST_INPUT_CHAR = String.valueOf(partialExpression.charAt(partialExpression.length() - 1));
-
+                RefactorExpression.LAST_INPUT_CHAR = lastChar;
             } else {
 
-                expressionCalculate = partialExpression;
-                String resultOperation = ResultExpression.calculateResultOperation(expressionCalculate);
+                try {
 
-                if (resultOperation.equals("Invalid Expression!")) {
+                    expressionCalculate = fullExpression;
+                    String resultOperation = ResultExpression.calculateResultOperation(expressionCalculate);
+                    String resultToTextView  = "= " + resultOperation;
+                    textView.setText(resultToTextView);
 
-                    textView.setText(resultOperation);
-                } else {
-                    String result = "=" + resultOperation;
-                    textView.setText(result);
+                } catch (JepException e) {
+
+                    String exception = "Invalid Expression!";
+                    textView.setText(exception);
+
+                    e.printStackTrace();
                 }
             }
-
-        } else {
-            textView.setText("=");
         }
     }
 
+    // finally
+    public String lastChar(@NonNull String expression) {
+
+        return (expression.isEmpty()) ? "" : String.valueOf(expression.charAt(expression.length() - 1));
+    }
+
+    // finally
     public void setTextView(TextView textView) {
 
         this.textView = textView;
     }
-
 }

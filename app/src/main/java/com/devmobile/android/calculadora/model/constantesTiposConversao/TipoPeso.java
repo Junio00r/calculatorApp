@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model.constantesTiposConversao.peso;
+package com.devmobile.android.calculadora.model.constantesTiposConversao;
 
 public enum TipoPeso {
 

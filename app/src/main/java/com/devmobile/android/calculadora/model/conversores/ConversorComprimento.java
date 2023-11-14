@@ -1,8 +1,9 @@
-package com.devmobile.android.calculadora;
+package com.devmobile.android.calculadora.model.conversores;
 
-import com.devmobile.android.calculadora.model.constantesTiposConversao.comprimento.TipoComprimento;
-import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
-import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
+import androidx.annotation.NonNull;
+
+import com.devmobile.android.calculadora.model.constantesTiposConversao.TipoComprimento;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -57,13 +58,14 @@ public class ConversorComprimento
         }
     }
 
-    protected String getValueConverted(String valueToConverted) {
+    public String getValueConverted(@NonNull String value) {
 
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.###############");
+        String valueToConvert = value.replace(",", ".");
         BigDecimal itemFirstSpinnerValueInMeters = enumsUnitiesLength[idItemFirstSpinner].getValueInMetre();
         BigDecimal itemSecondSpinnerValueInMeters = enumsUnitiesLength[idItemSecondSpinner].getValueInMetre();
         BigDecimal resultDivision = itemFirstSpinnerValueInMeters.divide(itemSecondSpinnerValueInMeters, 15, RoundingMode.HALF_EVEN);
-        BigDecimal resultConverted = resultDivision.multiply(new BigDecimal(valueToConverted));
+        BigDecimal resultConverted = resultDivision.multiply(new BigDecimal(valueToConvert));
 
         return decimalFormat.format(resultConverted);
     }

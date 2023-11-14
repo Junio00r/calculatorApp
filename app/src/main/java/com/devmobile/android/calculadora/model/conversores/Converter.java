@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora;
+package com.devmobile.android.calculadora.model.conversores;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -31,7 +31,7 @@ public abstract class Converter {
 
     protected void addNameItem() {  }
 
-    protected void addSpinnerSelected(String firstSpinnerItemSelected, Integer idItemFirstSpinner
+    public void addSpinnerSelected(String firstSpinnerItemSelected, Integer idItemFirstSpinner
             , String secondSpinnerItemSelected, Integer idItemSecondSpinner) {
 
         this.firstSpinnerItemSelected = firstSpinnerItemSelected;
@@ -41,13 +41,13 @@ public abstract class Converter {
 
     }
 
-    protected String getValueConverted(String valueToConverted) {
+    public String getValueConverted(String valueToConverted) {
 
         return "";
     }
 
     // Getters
-    protected ArrayList<HashMap<String, String>> getTypesToConverter() {
+    public ArrayList<HashMap<String, String>> getTypesToConverter() {
 
         return typesToConverter;
     }

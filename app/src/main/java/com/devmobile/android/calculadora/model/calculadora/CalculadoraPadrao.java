@@ -6,7 +6,6 @@ import com.devmobile.android.calculadora.model.constanteCalculadora.Separador;
 import com.devmobile.android.calculadora.model.interfaces.CopiarOperacao;
 import com.devmobile.android.calculadora.model.interfaces.EntradaDados;
 import com.devmobile.android.calculadora.model.interfaces.ExcluirDados;
-
 import java.util.LinkedList;
 
 

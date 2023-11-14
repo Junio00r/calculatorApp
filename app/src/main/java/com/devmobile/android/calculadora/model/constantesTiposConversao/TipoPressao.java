@@ -1,4 +1,4 @@
-package com.devmobile.android.calculadora.model.constantesTiposConversao.pressao;
+package com.devmobile.android.calculadora.model.constantesTiposConversao;
 
 public enum TipoPressao {
     ATMOSFERAS(1),
