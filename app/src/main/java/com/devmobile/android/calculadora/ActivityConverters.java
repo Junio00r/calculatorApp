@@ -8,17 +8,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.devmobile.android.calculadora.model.CustomEditTextConverter;
 import com.devmobile.android.calculadora.model.conversores.ConversorComprimento;
 import com.devmobile.android.calculadora.model.conversores.Converter;
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

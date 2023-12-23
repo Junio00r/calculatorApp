@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
-            customEditTextView.setText(textInput);
+            customEditTextView.append(textInput);
             attCursorPositionNow = customEditTextView.getText().length();
 
             customEditTextView.setSelection(attCursorPositionNow);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
             if (customEditTextView.getSelectionEnd() == getCustomEditTextSize()) {
 
-                customEditTextView.setText(customEditTextView.getText() + textInput);
+                customEditTextView.setText(customEditTextView.getText().toString() + textInput);
                 customEditTextView.setSelection(customEditTextView.getText().toString().length());
             } else {
 
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity
                 attCursorPositionBefore = getCursorEnd();
                 attCursorPositionNow = attCursorPositionBefore + 1;
 
-                customEditTextView.append(allExpressionInput);
+                customEditTextView.setText(allExpressionInput);
                 customEditTextView.setSelection(attCursorPositionNow);
             }
         }

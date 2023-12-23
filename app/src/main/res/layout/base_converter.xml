@@ -249,7 +249,6 @@
         android:allowUndo="true"
         android:lines="1"
         android:paddingHorizontal="10dp"
-        android:scrollbars="horizontal"
         android:textAlignment="textEnd"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/line1Converter"

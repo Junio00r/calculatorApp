@@ -2,12 +2,22 @@ package com.devmobile.android.calculadora.model.conversores;
 
 import androidx.annotation.NonNull;
 
+import com.devmobile.android.calculadora.Country;
+import com.devmobile.android.calculadora.DecimalMaskNumber;
+import com.devmobile.android.calculadora.model.RefactorExpression;
+import com.devmobile.android.calculadora.model.constanteCalculadora.Numero;
 import com.devmobile.android.calculadora.model.constantesTiposConversao.TipoComprimento;
+
+import org.jetbrains.annotations.Contract;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class ConversorComprimento
         extends Converter {
@@ -21,7 +31,10 @@ public class ConversorComprimento
         init();
     }
 
+    @NonNull
+    @Contract(" -> new")
     public static ConversorComprimento getInstance() {
+
         return new ConversorComprimento();
     }
 
@@ -59,14 +72,13 @@ public class ConversorComprimento
     }
 
     public String getValueConverted(@NonNull String value) {
+        String valueToDecimalFormat = RefactorExpression.parseToDecimalFormat(value);
 
-        DecimalFormat decimalFormat = new DecimalFormat("#,###.###############");
-        String valueToConvert = value.replace(",", ".");
         BigDecimal itemFirstSpinnerValueInMeters = enumsUnitiesLength[idItemFirstSpinner].getValueInMetre();
         BigDecimal itemSecondSpinnerValueInMeters = enumsUnitiesLength[idItemSecondSpinner].getValueInMetre();
         BigDecimal resultDivision = itemFirstSpinnerValueInMeters.divide(itemSecondSpinnerValueInMeters, 15, RoundingMode.HALF_EVEN);
-        BigDecimal resultConverted = resultDivision.multiply(new BigDecimal(valueToConvert));
+        BigDecimal resultConverted = resultDivision.multiply(new BigDecimal(valueToDecimalFormat));
 
-        return decimalFormat.format(resultConverted);
+        return Country.getDecimalFormatOfCountry().format(resultConverted);
     }
 }

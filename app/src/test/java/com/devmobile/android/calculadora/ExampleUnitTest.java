@@ -1,7 +1,6 @@
 package com.devmobile.android.calculadora;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

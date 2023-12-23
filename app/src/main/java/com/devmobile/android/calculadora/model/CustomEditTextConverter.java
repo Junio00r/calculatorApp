@@ -21,6 +21,13 @@ public class CustomEditTextConverter
     public void init() {
 
         customEditTextView = findViewById(R.id.editTextViewConverter);
+        textView = findViewById(R.id.textViewConverter);
+    }
+
+    @Override
+    protected void setSpecifications() {
+       setTextSize(customEditTextView.getTextSize() - 10);
+       setShowSoftInputOnFocus(false);
     }
 
     @Override

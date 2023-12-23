@@ -7,7 +7,7 @@ public enum TipoComprimento {
     CENTIMETRE("CM", " - Centimetre", new BigDecimal("0.01")),
     MILLIMETRE("MM", " - Millimetre", new BigDecimal("0.001")),
     KILOMETRE("KM", " - Kilometre", new BigDecimal("1000.0")),
-    FOOT("FOOT", " - Foot", new BigDecimal("0.3048")),
+    FOOT("FT", " - Foot", new BigDecimal("0.3048")),
     MILE("MI", " - Miles", new BigDecimal("1609.344")),
     YARD("YD", " - Yard", new BigDecimal("0.9144")),
     INCH("IN", " - Inch", new BigDecimal("39.37007874")),

@@ -5,14 +5,18 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.R;
 import com.singularsys.jep.JepException;
 
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
     protected TextView textView;
-    protected CustomEditTextView customEditTextView;
+    protected EditText customEditTextView;
+    protected String result = "";
+    protected String inputWithMask = "";
 
     public CustomEditTextView(Context context, AttributeSet attrs) {
 
@@ -30,8 +34,8 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
     protected void setSpecifications() {
 
-        customEditTextView.setTextSize(customEditTextView.getTextSize() - 10);
-        customEditTextView.setShowSoftInputOnFocus(false);
+        setTextSize(customEditTextView.getTextSize() - 10);
+        setShowSoftInputOnFocus(false);
     }
 
     // finally
@@ -44,10 +48,13 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
                 && clipboardMenu != null
                 && !clipboardMenu.getPrimaryClip().toString().equals(" ")) {
 
-            customEditTextView.setText(clipboardMenu
-                    .getPrimaryClip()
-                    .getItemAt(0)
-                    .getText().toString());
+            if (customEditTextView != null)
+                customEditTextView.append(
+                        clipboardMenu
+                        .getPrimaryClip()
+                        .getItemAt(0)
+                        .getText()
+                        .toString());
 
             return true;
         }
@@ -57,17 +64,26 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
     @Override
     public void addTextChangedListener(TextWatcher watcher) {
-
         super.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (textView != null)
-                    insertResultInTextView(s.toString());
+                String input = s.toString();
+
+                if (textView != null && !input.equals(inputWithMask)) {
+
+                    insertResultInTextView(input);
+
+                    inputWithMask = DecimalMaskNumber.setMask(input);
+
+                    if (!inputWithMask.equals(""))
+                        customEditTextView.setText(inputWithMask);
+                }
             }
 
             @Override
@@ -77,7 +93,6 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
     }
 
     protected void insertResultInTextView(@NonNull String data) {
-
         String fullExpression = data.replaceAll("\\s", "");
         String lastChar = lastChar(fullExpression);
         String expressionCalculate = "";
@@ -93,7 +108,7 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
                     expressionCalculate = fullExpression;
                     String resultOperation = ResultExpression.calculateResultOperation(expressionCalculate);
-                    String resultToTextView  = "= " + resultOperation;
+                    String resultToTextView = "= " + resultOperation;
                     textView.setText(resultToTextView);
 
                 } catch (JepException e) {

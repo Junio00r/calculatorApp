@@ -1,12 +1,12 @@
 package com.devmobile.android.calculadora.model;
 
 import androidx.annotation.NonNull;
+import com.devmobile.android.calculadora.Country;
 import java.text.DecimalFormat;
-import java.util.Locale;
 
 public class RefactorExpression {
     public static String LAST_INPUT_CHAR;
-    private static DecimalFormat decimalFormat = null;
+
     @NonNull
     public static String getRefactoredInputExpression(String expressionNoRefactor) {
 
@@ -19,7 +19,7 @@ public class RefactorExpression {
         expressionForRefactor = expressionForRefactor.replace("×", "*");
         expressionForRefactor = expressionForRefactor.replace("÷", "/");
         expressionForRefactor = expressionForRefactor.replace("x!", "!");
-        expressionForRefactor = expressionForRefactor.replace("e", "*10^");
+        expressionForRefactor = expressionForRefactor.replace("e", String.valueOf(Math.E));
         expressionForRefactor = expressionForRefactor.replace("E", String.valueOf(Math.E));
         expressionForRefactor = expressionForRefactor.replace("euler", String.valueOf(Math.E));
         expressionForRefactor = expressionForRefactor.replace("π", String.valueOf(Math.PI));
@@ -30,14 +30,14 @@ public class RefactorExpression {
             switch (LAST_INPUT_CHAR) {
                 case "+":
                 case "-":
-                    expressionForRefactor = expressionForRefactor.replace("%", "*10/100" );
+                    expressionForRefactor = expressionForRefactor.replace("%", "*10/100");
                     break;
                 case "÷":
                 case "/":
                 case "×":
                 case "*":
-                    expressionForRefactor = expressionForRefactor.replace(LAST_INPUT_CHAR, LAST_INPUT_CHAR + "(" );
-                    expressionForRefactor = expressionForRefactor.replace("%", "/100" );
+                    expressionForRefactor = expressionForRefactor.replace(LAST_INPUT_CHAR, LAST_INPUT_CHAR + "(");
+                    expressionForRefactor = expressionForRefactor.replace("%", "/100");
                     break;
             }
 
@@ -48,19 +48,21 @@ public class RefactorExpression {
 
     public static String getDecimalFormatted(Object obj) {
 
-        if (decimalFormat == null) {
-            if (isEUA()) {
-                decimalFormat = new DecimalFormat("#,###.#####");
-            } else {
-                decimalFormat = new DecimalFormat("#.###,#####");
-            }
-        }
-
-        return decimalFormat.format(obj);
+        return Country.getDecimalFormatOfCountry().format(obj);
     }
 
-    public static boolean isEUA() {
+    @NonNull
+    public static String parseToDecimalFormat(String value) {
 
-        return Locale.getDefault().getCountry().equals("US");
+
+        if (Country.getDecimalSymbolSeparator().equals(".")) {
+
+            value = value.replace(",", "");
+        } else {
+
+            value = value.replace(",", ".");
+        }
+
+        return value;
     }
 }
