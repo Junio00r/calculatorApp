@@ -1,23 +1,13 @@
 package com.devmobile.android.calculadora.model.conversores;
 
 import androidx.annotation.NonNull;
-
 import com.devmobile.android.calculadora.Country;
-import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.model.RefactorExpression;
-import com.devmobile.android.calculadora.model.constanteCalculadora.Numero;
 import com.devmobile.android.calculadora.model.constantesTiposConversao.TipoComprimento;
-
 import org.jetbrains.annotations.Contract;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ConversorComprimento
         extends Converter {

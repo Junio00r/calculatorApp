@@ -7,10 +7,10 @@ import java.util.Locale;
 
 public abstract class Country {
     private static final DecimalFormat decimalFormate = new DecimalFormat();
+    private static final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
 
     @NonNull
     public static DecimalFormat getDecimalFormatOfCountry() {
-        decimalFormate.setMaximumFractionDigits(5);
 
         return decimalFormate;
     }
@@ -19,6 +19,14 @@ public abstract class Country {
     public static String getDecimalSymbolSeparator() {
         char symbolDecimal = DecimalFormatSymbols.getInstance().getDecimalSeparator();
 
-        return (symbolDecimal == '.') ? "." : ",";
+        if (symbolDecimal == '.') {
+            decimalFormatSymbols.setGroupingSeparator(',');
+
+            return ".";
+        }
+
+        decimalFormatSymbols.setGroupingSeparator(',');
+
+        return ",";
     }
 }

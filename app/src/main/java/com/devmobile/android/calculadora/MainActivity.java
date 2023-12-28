@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
 
     private void copyCalculate() {
         String messageCopy = "Resultado Copiado!";
-        Toast toast = Toast.makeText(this, "Resultado Copiado!", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, messageCopy, Toast.LENGTH_SHORT);
         String result = getTextViewId().getText().toString().replace("=", "");
         ClipData clipData1 = ClipData.newPlainText(messageCopy, result);
         ClipData clipData2 = ClipData.newPlainText(messageCopy, customEditTextView.getText().toString());

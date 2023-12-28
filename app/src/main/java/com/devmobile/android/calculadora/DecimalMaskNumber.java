@@ -1,16 +1,20 @@
 package com.devmobile.android.calculadora;
 
 import androidx.annotation.NonNull;
+
+import com.devmobile.android.calculadora.model.RefactorExpression;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.text.DecimalFormatSymbols;
 
 public abstract class DecimalMaskNumber {
-    private static final NumberFormat numberFormatOfCountry = NumberFormat.getInstance();
 
     @NonNull
-    public static String setMask(@NonNull String input) {
+    public static String setMask(@NonNull String input) throws NumberFormatException {
         String numberNoSymbols;
         String symbolsNoNumbers;
         String[] conjunctOfNumbersWithMask;
@@ -18,7 +22,7 @@ public abstract class DecimalMaskNumber {
 
         if (input.length() > 3) {
             numberNoSymbols = input.replaceAll("[^0-9,.]", " ");
-            symbolsNoNumbers = input.replaceAll("[0-9,.]", "");
+            symbolsNoNumbers = input.replaceAll("[0-9.,]", "");
 
             String[] conjunctOfNumbers = splitConjutoOfNumbers(numberNoSymbols, " ");
             String[] conjunctOfSymbols = splitConjutoOfSymbols(symbolsNoNumbers, "");
@@ -32,32 +36,30 @@ public abstract class DecimalMaskNumber {
     }
 
     /**
-     *
      * @param conjuntOfNumbersNoMask conjucts of numbers with mask
      * @return conjunct of numbers with mask.
      */
-    private static String[] addNumMaskInConjunctOfNumbers(@NonNull String[] conjuntOfNumbersNoMask) {
-        Number number;
+    @NonNull
+    private static String[] addNumMaskInConjunctOfNumbers(@NonNull String[] conjuntOfNumbersNoMask)
+            throws NumberFormatException {
+        String[] conjuntOfNumbersWithMask = new String[conjuntOfNumbersNoMask.length];
 
         for (int i = 0; i < conjuntOfNumbersNoMask.length; i++) {
 
-            try {
-                number = numberFormatOfCountry.parse(conjuntOfNumbersNoMask[i]);
-                BigDecimal mask = new BigDecimal(number.toString());
+            String numberToDecimalFormat = RefactorExpression.parseToDecimalFormat(conjuntOfNumbersNoMask[i]);
+            BigDecimal mask = new BigDecimal(numberToDecimalFormat);
 
-                conjuntOfNumbersNoMask[i] = Country.getDecimalFormatOfCountry().format(mask);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            String numberMask = Country.getDecimalFormatOfCountry().format(mask);
+            conjuntOfNumbersWithMask[i] = numberMask;
+
         }
 
-        return conjuntOfNumbersNoMask;
+        return conjuntOfNumbersWithMask;
     }
 
     /**
-     *
      * @param conjunctoOfNumbersWithMask are numbers that been separados em numbers group
-     * @param conjuntOfSymbols are as sybols such +-* e etc
+     * @param conjuntOfSymbols           are as sybols such +-* e etc
      * @return expression reformultated of same way when the user insert, but, this time the numbers
      * have mask.
      */
@@ -67,7 +69,7 @@ public abstract class DecimalMaskNumber {
         StringBuilder expressionReformalated = new StringBuilder();
         System.out.println(conjuntOfSymbols.length);
 
-        for (int i = 0; (i <= conjunctoOfNumbersWithMask.length) || (i <= conjuntOfSymbols.length) ; i++) {
+        for (int i = 0; (i <= conjunctoOfNumbersWithMask.length) || (i <= conjuntOfSymbols.length); i++) {
 
             if (i < conjunctoOfNumbersWithMask.length) {
 
@@ -85,9 +87,8 @@ public abstract class DecimalMaskNumber {
     }
 
     /**
-     *
      * @param stringToSplit string to separate the numbers
-     * @param split character that will be use to separates
+     * @param split         character that will be use to separates
      * @return a array conjunct of numbers on the expression.
      */
     @NonNull
@@ -97,9 +98,8 @@ public abstract class DecimalMaskNumber {
     }
 
     /**
-     *
      * @param stringToSplit string to separate the symbols
-     * @param split character that will be use to separates
+     * @param split         character that will be use to separates
      * @return a array of mathematical symbols on the expression.
      */
     @NonNull

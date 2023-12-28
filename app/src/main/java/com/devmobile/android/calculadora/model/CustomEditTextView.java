@@ -12,6 +12,8 @@ import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.R;
 import com.singularsys.jep.JepException;
 
+import java.io.PrintStream;
+
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
     protected TextView textView;
     protected EditText customEditTextView;
@@ -73,16 +75,25 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString();
+                                           String input = s.toString();
 
                 if (textView != null && !input.equals(inputWithMask)) {
 
                     insertResultInTextView(input);
 
-                    inputWithMask = DecimalMaskNumber.setMask(input);
+                    try {
 
-                    if (!inputWithMask.equals(""))
-                        customEditTextView.setText(inputWithMask);
+                        inputWithMask = DecimalMaskNumber.setMask(input);
+
+                        if (!inputWithMask.equals(""))
+                            customEditTextView.setText(inputWithMask);
+
+                    } catch (NumberFormatException e) {
+                        String exception = "Invalid Expression!";
+                        textView.setText(exception);
+
+                        System.out.printf(exception);
+                    }
                 }
             }
 

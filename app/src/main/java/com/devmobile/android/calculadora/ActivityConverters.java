@@ -238,12 +238,23 @@ public class ActivityConverters extends Activity
         }
     }
 
-    private void addResultInTextView(String valueToConvert) {
+    private void addResultInTextView(@NonNull String valueToConvert) {
 
         if (!valueToConvert.trim().equals("")) {
 
-            String valueConverted = converter.getValueConverted(valueToConvert);
-            mTextView.setText(valueConverted);
+            try {
+
+                String valueConverted = converter.getValueConverted(valueToConvert);
+                mTextView.setText(valueConverted);
+
+            }  catch (NumberFormatException e) {
+
+                String exception = "Invalid Expression!";
+                mTextView.setText(exception);
+
+                e.printStackTrace();
+            }
+
         }
     }
 }

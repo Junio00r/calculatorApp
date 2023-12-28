@@ -3,6 +3,7 @@ package com.devmobile.android.calculadora.model;
 import androidx.annotation.NonNull;
 import com.devmobile.android.calculadora.Country;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 
 public class RefactorExpression {
     public static String LAST_INPUT_CHAR;
@@ -16,6 +17,7 @@ public class RefactorExpression {
     @NonNull
     public static String getFormattedExpression(String expressionForRefactor) {
 
+        expressionForRefactor = parseToDecimalFormat(expressionForRefactor);
         expressionForRefactor = expressionForRefactor.replace("×", "*");
         expressionForRefactor = expressionForRefactor.replace("÷", "/");
         expressionForRefactor = expressionForRefactor.replace("x!", "!");
@@ -54,13 +56,15 @@ public class RefactorExpression {
     @NonNull
     public static String parseToDecimalFormat(String value) {
 
-
         if (Country.getDecimalSymbolSeparator().equals(".")) {
 
             value = value.replace(",", "");
         } else {
 
-            value = value.replace(",", ".");
+            if (!(value.charAt(value.length() - 1) == ',' || value.charAt(value.length() - 1) == '.')) {
+
+                value = value.replace(".", "").replaceAll(",", ".");
+            }
         }
 
         return value;
