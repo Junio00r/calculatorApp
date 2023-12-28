@@ -12,8 +12,6 @@ import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.R;
 import com.singularsys.jep.JepException;
 
-import java.io.PrintStream;
-
 public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
     protected TextView textView;
     protected EditText customEditTextView;

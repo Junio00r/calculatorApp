@@ -1,15 +1,9 @@
 package com.devmobile.android.calculadora;
 
 import androidx.annotation.NonNull;
-
 import com.devmobile.android.calculadora.model.RefactorExpression;
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Arrays;
-import java.text.DecimalFormatSymbols;
 
 public abstract class DecimalMaskNumber {
 
