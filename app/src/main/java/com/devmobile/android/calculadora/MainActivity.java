@@ -4,17 +4,29 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.devmobile.android.calculadora.model.BackgroundButtonView;
 import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
 import com.devmobile.android.calculadora.model.interfaces.OnItemClickListener;
@@ -23,10 +35,12 @@ import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
 import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
 import com.devmobile.android.calculadora.model.viewPager2Fragment.ViewPagerKeyboardAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, OnItemClickListener, OnButtonClickListener {
@@ -47,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     private int lastExpressionDownAccessed = 0;
     private DotsIndicator dotsIndicator;
     private Bundle bundle;
+    private int cursorPosition = 0;
 
     private int buttonBackSpace;
     private int buttonEquals;
@@ -59,6 +74,7 @@ public class MainActivity extends AppCompatActivity
     private int buttonDownExp;
     private int buttonUpExp;
     private int buttonClearAllExp;
+    private BackgroundButtonView buttonSeparator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +119,7 @@ public class MainActivity extends AppCompatActivity
 
         // buttonsDefault
         buttonBackSpace = defaultLayout.findViewById(R.id.buttonBackSpace).getId();
+        buttonSeparator = defaultLayout.findViewById(R.id.buttonSeparator);
         buttonEquals = defaultLayout.findViewById(R.id.buttonEquals).getId();
         buttonDown = defaultLayout.findViewById(R.id.buttonDown).getId();
         buttonUp = defaultLayout.findViewById(R.id.buttonUp).getId();
@@ -170,16 +187,18 @@ public class MainActivity extends AppCompatActivity
 
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
-            customEditTextView.append(textInput);
-            attCursorPositionNow = customEditTextView.getText().length();
+            customEditTextView.setText(textInput);
+            attCursorPositionNow = customEditTextView.length();
 
             customEditTextView.setSelection(attCursorPositionNow);
+            attCursorPosition();
         } else {
 
             if (customEditTextView.getSelectionEnd() == getCustomEditTextSize()) {
 
                 customEditTextView.setText(customEditTextView.getText().toString() + textInput);
                 customEditTextView.setSelection(customEditTextView.getText().toString().length());
+                attCursorPosition();
             } else {
 
                 String textLeftCursor = (String) customEditTextView.getText().toString().subSequence(0, getCursorStart());
@@ -191,6 +210,7 @@ public class MainActivity extends AppCompatActivity
 
                 customEditTextView.setText(allExpressionInput);
                 customEditTextView.setSelection(attCursorPositionNow);
+                attCursorPosition();
             }
         }
     }
@@ -255,7 +275,7 @@ public class MainActivity extends AppCompatActivity
                 && !getTextViewId().getText().toString().equals("=")
                 && getCustomEditTextSize() > 0) {
 
-            String resultedInTextView = getTextViewId().getText().toString().replace("=", "");
+            String resultedInTextView = getTextViewId().getText().toString().replace("= ", "");
 
             putHistoric();
 
@@ -267,21 +287,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void excludeCharacter() {
-        int cursorPosition = getCursorEnd();
+//        cursorPosition = customEditTextView.length();
 
         if (cursorPosition > 0) {
+
             if (getCursorStart() == getCursorEnd()) {
-                if (getCursorStart() < getCustomEditTextSize()
-                        && getCursorStart() > 0) {
 
-                    customEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
-                    customEditTextView.setSelection(cursorPosition - 1);
+//                if (getCursorStart() < getCustomEditTextSize()
+//                        && getCursorStart() > 0) {
 
-                } else {
-                    customEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
-                }
+                customEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
+                attCursorPosition();
+
+//                } else {
+
+//                    customEditTextView.getText().delete(cursorPosition - 1, cursorPosition);
+
+//                }
             } else {
                 customEditTextView.getText().delete(getCursorStart(), getCursorEnd());
+                attCursorPosition();
             }
         }
     }
@@ -343,10 +368,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     public int getTextSize() {
-        return textView.getText().toString().trim().length();
+        return textView.getText().length();
     }
 
     public int getCustomEditTextSize() {
-        return customEditTextView.getText().toString().trim().length();
+        return customEditTextView.getText().length();
+    }
+
+    private void attCursorPosition() {
+        cursorPosition = getCustomEditTextSize();
     }
 }

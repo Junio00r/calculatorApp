@@ -54,17 +54,20 @@ public class RefactorExpression {
     }
 
     @NonNull
-    public static String parseToDecimalFormat(String value) {
+    public static String parseToDecimalFormat(@NonNull String value) {
+
+        char lastChar = value.charAt(value.length() - 1);
 
         if (Country.getDecimalSymbolSeparator().equals(".")) {
 
             value = value.replace(",", "");
         } else {
 
-            if (!(value.charAt(value.length() - 1) == ',' || value.charAt(value.length() - 1) == '.')) {
+            if (!(lastChar == ',' || lastChar == '.')) {
 
                 value = value.replace(".", "").replaceAll(",", ".");
             }
+
         }
 
         return value;

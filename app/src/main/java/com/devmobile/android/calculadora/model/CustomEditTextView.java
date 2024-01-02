@@ -7,7 +7,9 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.R;
 import com.singularsys.jep.JepException;
@@ -51,10 +53,10 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
             if (customEditTextView != null)
                 customEditTextView.append(
                         clipboardMenu
-                        .getPrimaryClip()
-                        .getItemAt(0)
-                        .getText()
-                        .toString());
+                                .getPrimaryClip()
+                                .getItemAt(0)
+                                .getText()
+                                .toString());
 
             return true;
         }
@@ -73,7 +75,8 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                           String input = s.toString();
+
+                String input = s.toString();
 
                 if (textView != null && !input.equals(inputWithMask)) {
 
@@ -83,8 +86,10 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
                         inputWithMask = DecimalMaskNumber.setMask(input);
 
-                        if (!inputWithMask.equals(""))
-                            customEditTextView.setText(inputWithMask);
+//                        if (!inputWithMask.equals("")) {
+                        customEditTextView.setText(inputWithMask);
+//                            textView.setText("=");
+//                        }
 
                     } catch (NumberFormatException e) {
                         String exception = "Invalid Expression!";
@@ -117,6 +122,7 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
 
                     expressionCalculate = fullExpression;
                     String resultOperation = ResultExpression.calculateResultOperation(expressionCalculate);
+
                     String resultToTextView = "= " + resultOperation;
                     textView.setText(resultToTextView);
 
@@ -128,6 +134,10 @@ public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditT
                     e.printStackTrace();
                 }
             }
+
+        } else {
+
+            textView.setText("=");
         }
     }
 

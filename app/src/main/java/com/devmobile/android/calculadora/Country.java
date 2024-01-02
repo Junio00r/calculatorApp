@@ -3,7 +3,6 @@ package com.devmobile.android.calculadora;
 import androidx.annotation.NonNull;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 public abstract class Country {
     private static final DecimalFormat decimalFormate = new DecimalFormat();
@@ -11,6 +10,8 @@ public abstract class Country {
 
     @NonNull
     public static DecimalFormat getDecimalFormatOfCountry() {
+        decimalFormate.setMinimumFractionDigits(0);
+        decimalFormate.setMaximumFractionDigits(15);
 
         return decimalFormate;
     }

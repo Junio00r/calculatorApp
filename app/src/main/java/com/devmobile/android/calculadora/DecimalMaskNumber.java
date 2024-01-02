@@ -44,7 +44,8 @@ public abstract class DecimalMaskNumber {
             BigDecimal mask = new BigDecimal(numberToDecimalFormat);
 
             String numberMask = Country.getDecimalFormatOfCountry().format(mask);
-            conjuntOfNumbersWithMask[i] = numberMask;
+            String numberFinally = checkNumberFraction(Country.getDecimalSymbolSeparator(), mask.toString(), numberMask);
+            conjuntOfNumbersWithMask[i] = numberFinally;
 
         }
 
@@ -78,6 +79,19 @@ public abstract class DecimalMaskNumber {
 
 
         return expressionReformalated.toString();
+    }
+
+    @NonNull
+    private static String checkNumberFraction(@NonNull String decimalSeparator, @NonNull String numberNoMask, @NonNull String numberWithMask) {
+
+        if (numberWithMask.contains(decimalSeparator)) {
+            String fractionOfNumberNoMask = numberNoMask.replaceAll("(.*?)\\.", "");
+            String numberFraction = numberWithMask.replaceAll(",\\d+", decimalSeparator + fractionOfNumberNoMask);
+
+            return numberFraction;
+        }
+
+        return numberWithMask;
     }
 
     /**

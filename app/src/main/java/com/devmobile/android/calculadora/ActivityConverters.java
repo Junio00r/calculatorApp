@@ -46,6 +46,7 @@ public class ActivityConverters extends Activity
     private final int[] to = {R.id.icon_item_text_view, R.id.description_item_text_view};
     private ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
     private Converter converter;
+    private int cursorPosition = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,19 +126,19 @@ public class ActivityConverters extends Activity
     }
 
     private void excludeCharacter() {
-        int cursorPosition = getCursorEnd();
+//        int cursorPosition = getCursorEnd();
 
         if (cursorPosition > 0) {
+
             if (getCursorStart() == getCursorEnd()) {
-                if (getCursorStart() < getCustomEditTextSize()
-                        && getCursorStart() > 0) {
 
                     mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
-                    mCustomEditTextConverter.setSelection(cursorPosition - 1);
+//                    mCustomEditTextConverter.setSelection(cursorPosition - 1);
+                    attCursorPosition();
 
-                } else {
-                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
-                }
+//                } else {
+//                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
+//                }
             } else {
                 mCustomEditTextConverter.getText().delete(getCursorStart(), getCursorEnd());
             }
@@ -151,15 +152,17 @@ public class ActivityConverters extends Activity
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
             mCustomEditTextConverter.append(textInput);
-            attCursorPositionNow = mCustomEditTextConverter.getText().length();
+            attCursorPositionNow = mCustomEditTextConverter.length();
 
             mCustomEditTextConverter.setSelection(attCursorPositionNow);
+            attCursorPosition();
         } else {
 
             if (mCustomEditTextConverter.getSelectionEnd() == getCustomEditTextSize()) {
 
                 mCustomEditTextConverter.append(textInput);
                 mCustomEditTextConverter.setSelection(mCustomEditTextConverter.getText().toString().length());
+                attCursorPosition();
             } else {
 
                 String textLeftCursor = (String) mCustomEditTextConverter.getText().toString().subSequence(0, getCursorStart());
@@ -171,7 +174,7 @@ public class ActivityConverters extends Activity
 
                 mCustomEditTextConverter.append(allExpressionInput);
                 mCustomEditTextConverter.setSelection(attCursorPositionNow);
-//                mTextView.append(allExpressionInput);
+              attCursorPosition();
             }
         }
     }
@@ -186,6 +189,11 @@ public class ActivityConverters extends Activity
 
         mCustomEditTextConverter.setText("");
         mTextView.setText("");
+    }
+
+    private void attCursorPosition() {
+
+        cursorPosition = getCustomEditTextSize();
     }
 
     private int getCursorEnd() {

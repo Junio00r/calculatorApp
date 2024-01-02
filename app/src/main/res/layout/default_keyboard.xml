@@ -166,8 +166,6 @@
             android:id="@+id/buttonSeparator"
             style="@style/EspecialButtonStyle"
             android:layout_margin="5dp"
-            android:contentDescription="@string/separador"
-            android:text="@string/separador"
             app:layout_column="2"
             app:layout_row="4" />
 
@@ -293,6 +291,5 @@
             app:layout_row="5" />
 
     </androidx.gridlayout.widget.GridLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
