@@ -1,7 +1,9 @@
 package com.devmobile.android.calculadora.model;
 
 import androidx.annotation.NonNull;
+
 import com.devmobile.android.calculadora.Country;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
@@ -56,20 +58,22 @@ public class RefactorExpression {
     @NonNull
     public static String parseToDecimalFormat(@NonNull String value) {
 
-        char lastChar = value.charAt(value.length() - 1);
+        if (!value.isEmpty()) {
+            char lastChar = value.charAt(value.length() - 1);
 
-        if (Country.getDecimalSymbolSeparator().equals(".")) {
+            if (Country.getDecimalSymbolSeparator().equals(".")) {
 
-            value = value.replace(",", "");
-        } else {
+                value = value.replace(",", "");
+            } else {
 
-            if (!(lastChar == ',' || lastChar == '.')) {
+                if (!(lastChar == ',' || lastChar == '.')) {
 
-                value = value.replace(".", "").replaceAll(",", ".");
+                    value = value.replace(".", "").replaceAll(",", ".");
+                }
             }
-
         }
 
         return value;
     }
+
 }

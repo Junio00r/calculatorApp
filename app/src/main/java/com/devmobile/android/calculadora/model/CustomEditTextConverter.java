@@ -13,7 +13,6 @@ public class CustomEditTextConverter
     private DataInsertEditTextConverter dataInsertEditTextConverter;
 
     public CustomEditTextConverter(Context context, AttributeSet attrs) {
-
         super(context, attrs);
     }
 
@@ -32,8 +31,13 @@ public class CustomEditTextConverter
 
     @Override
     public void insertResultInTextView(@NonNull String partialExpression) {
+        String fullExpression = partialExpression.replaceAll("\\s", "");
 
-        this.dataInsertInEditTextToConverter(partialExpression);
+        if (!fullExpression.isEmpty()) {
+            this.dataInsertInEditTextToConverter(partialExpression);
+        } else {
+            textView.setText("");
+        }
     }
 
     public void addDataInsertEditTextConverter(DataInsertEditTextConverter dataInsertEditTextConverter) {

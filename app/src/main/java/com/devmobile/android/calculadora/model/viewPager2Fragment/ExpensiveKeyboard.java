@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.devmobile.android.calculadora.R;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
+import java.util.stream.Stream;
 
 public class ExpensiveKeyboard
         extends Fragment
@@ -81,7 +82,24 @@ public class ExpensiveKeyboard
         this.onButtonClickListener = onButtonClickListener;
     }
 
-    public void initReferences(View v) {
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("button_click_listener", onButtonClickListener);
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            onButtonClickListener =
+                    (OnButtonClickListener) savedInstanceState.getSerializable("button_click_listener");
+        }
+    }
+
+    public void initReferences(@NonNull View v) {
 
         // symbols
         buttonPercentExp = v.findViewById(R.id.buttonPercentExp);
@@ -133,7 +151,7 @@ public class ExpensiveKeyboard
                 , buttonEulerExp, buttonPiExp
         };
 
-        for (View e : buttons) e.setOnClickListener(this);
+        Stream.of(buttons).forEach(button -> button.setOnClickListener(this));
     }
 
     public void onClick(View viewClicked) {

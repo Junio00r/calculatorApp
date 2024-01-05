@@ -23,10 +23,19 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
 
     private final List<OperationCalculated> operations;
     private OnItemClickListener onItemClickListener;
+    private static OperationCalculatedAdapter instance;
 
-    public OperationCalculatedAdapter(List<OperationCalculated> operationsCalculated, Context context) {
+    private OperationCalculatedAdapter(List<OperationCalculated> operationsCalculated, Context context) {
 
         this.operations = operationsCalculated;
+    }
+
+    public static OperationCalculatedAdapter getInstance(List<OperationCalculated> operationsCalculated, Context context) {
+        if (instance != null) {
+            return instance;
+        }
+
+        return instance = new OperationCalculatedAdapter(operationsCalculated, context);
     }
 
     public void addItemClickListener(OnItemClickListener onItemClickListener) {
@@ -84,5 +93,4 @@ public class OperationCalculatedAdapter extends RecyclerView.Adapter<OperationVi
 
         return operations.size();
     }
-
 }

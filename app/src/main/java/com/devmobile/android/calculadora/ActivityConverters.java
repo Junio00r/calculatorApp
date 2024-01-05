@@ -3,31 +3,37 @@ package com.devmobile.android.calculadora;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.devmobile.android.calculadora.model.CustomEditTextConverter;
 import com.devmobile.android.calculadora.model.conversores.ConversorComprimento;
 import com.devmobile.android.calculadora.model.conversores.Converter;
 import com.devmobile.android.calculadora.model.interfaces.DataInsertEditTextConverter;
 import com.devmobile.android.calculadora.model.interfaces.OnItemSpinnerListener;
 import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ActivityConverters extends Activity
         implements View.OnClickListener
         , OnItemSpinnerListener
-        , DataInsertEditTextConverter {
+        , DataInsertEditTextConverter
+        , Serializable {
 
-    private CustomEditTextConverter mCustomEditTextConverter;
-    private TextView mTextView;
-    private Spinner mSpinner1;
-    private Spinner mSpinner2;
+    private static CustomEditTextConverter mCustomEditTextConverter;
+    private static TextView mTextView;
+    private static Spinner mSpinner1;
+    private static Spinner mSpinner2;
     private Button buttonZero;
     private Button buttonOne;
     private Button buttonTwo;
@@ -44,16 +50,33 @@ public class ActivityConverters extends Activity
     private ImageButton buttonMenu;
     private final String[] from = {"abbreviation", "name"};
     private final int[] to = {R.id.icon_item_text_view, R.id.description_item_text_view};
-    private ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
-    private Converter converter;
+    private static ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
+    private static Converter converter;
     private int cursorPosition = 0;
+    private static int layoutConverterId = R.layout.base_converter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_converter);
 
-        initReferences();
+        if (savedInstanceState != null) {
+            layoutConverterId = savedInstanceState.getInt("layoutConverterId");
+            setContentView(layoutConverterId);
+            initReferences();
+            mCustomEditTextConverter.setText(savedInstanceState.getString("custom_editText_text"));
+        } else {
+
+            setContentView(layoutConverterId);
+            initReferences();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("layoutId", layoutConverterId);
+        outState.putString("custom_editText_text", mCustomEditTextConverter.getText().toString());
     }
 
     private void initReferences() {
@@ -132,15 +155,16 @@ public class ActivityConverters extends Activity
 
             if (getCursorStart() == getCursorEnd()) {
 
-                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
+                mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
 //                    mCustomEditTextConverter.setSelection(cursorPosition - 1);
-                    attCursorPosition();
+                attCursorPosition();
 
 //                } else {
 //                    mCustomEditTextConverter.getText().delete(cursorPosition - 1, cursorPosition);
 //                }
             } else {
                 mCustomEditTextConverter.getText().delete(getCursorStart(), getCursorEnd());
+                attCursorPosition();
             }
         }
     }
@@ -151,16 +175,16 @@ public class ActivityConverters extends Activity
 
         if (getCustomEditTextSize() > 0 && getTextSize() == 1) {
 
-            mCustomEditTextConverter.append(textInput);
-            attCursorPositionNow = mCustomEditTextConverter.length();
+            mCustomEditTextConverter.setText(mCustomEditTextConverter.getText().toString() + textInput);
+//            attCursorPositionNow = mCustomEditTextConverter.length();
 
-            mCustomEditTextConverter.setSelection(attCursorPositionNow);
+            mCustomEditTextConverter.setSelection(mCustomEditTextConverter.getText().length());
             attCursorPosition();
         } else {
 
             if (mCustomEditTextConverter.getSelectionEnd() == getCustomEditTextSize()) {
 
-                mCustomEditTextConverter.append(textInput);
+                mCustomEditTextConverter.setText(mCustomEditTextConverter.getText().toString() + textInput);
                 mCustomEditTextConverter.setSelection(mCustomEditTextConverter.getText().toString().length());
                 attCursorPosition();
             } else {
@@ -172,9 +196,9 @@ public class ActivityConverters extends Activity
                 attCursorPositionBefore = getCursorEnd();
                 attCursorPositionNow = attCursorPositionBefore + 1;
 
-                mCustomEditTextConverter.append(allExpressionInput);
+                mCustomEditTextConverter.setText(allExpressionInput);
                 mCustomEditTextConverter.setSelection(attCursorPositionNow);
-              attCursorPosition();
+                attCursorPosition();
             }
         }
     }
@@ -255,7 +279,7 @@ public class ActivityConverters extends Activity
                 String valueConverted = converter.getValueConverted(valueToConvert);
                 mTextView.setText(valueConverted);
 
-            }  catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
 
                 String exception = "Invalid Expression!";
                 mTextView.setText(exception);

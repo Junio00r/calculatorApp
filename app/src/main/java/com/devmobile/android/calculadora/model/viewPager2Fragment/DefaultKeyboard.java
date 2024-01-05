@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.devmobile.android.calculadora.R;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
+import java.io.Serializable;
+import java.util.stream.Stream;
 
 public class DefaultKeyboard extends Fragment
-        implements View.OnClickListener, OnButtonClickListener {
+        implements View.OnClickListener, OnButtonClickListener, Serializable {
     private OnButtonClickListener onButtonClickListener;
     private ImageButton buttonPercent;
     private ImageButton buttonOpenParenthesis;
@@ -69,6 +71,24 @@ public class DefaultKeyboard extends Fragment
         this.onButtonClickListener = onButtonClickListener;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("button_click_listener", onButtonClickListener);
+
+    }
+
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            onButtonClickListener =
+                    (OnButtonClickListener) savedInstanceState.getSerializable("button_click_listener");
+        }
+    }
+
     public void initReferences(@NonNull View v) {
         buttonPercent = v.findViewById(R.id.buttonPercent);
         buttonOpenParenthesis = v.findViewById(R.id.buttonOpenParenthesis);
@@ -106,7 +126,7 @@ public class DefaultKeyboard extends Fragment
                 , buttonSeven, buttonEight, buttonNine
         };
 
-        for (View e : buttons) e.setOnClickListener(this);
+        Stream.of(buttons).forEach(button -> button.setOnClickListener(this));
     }
 
     @Override

@@ -1,11 +1,15 @@
 package com.devmobile.android.calculadora.model.viewPager2Fragment;
 
+import android.content.Context;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
+import com.devmobile.android.calculadora.model.recicleView.OperationCalculated;
+import com.devmobile.android.calculadora.model.recicleView.OperationCalculatedAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +21,19 @@ public class ViewPagerKeyboardAdapter
     private final List<Fragment> keyboardsFragments = new ArrayList<>();
     private final DefaultKeyboard defaultKeyboard = new DefaultKeyboard();
     private final ExpensiveKeyboard expensiveKeyboard = new ExpensiveKeyboard();
+    private static ViewPagerKeyboardAdapter instance;
 
-    public ViewPagerKeyboardAdapter(@NonNull FragmentActivity fragmentActivity) {
+    private ViewPagerKeyboardAdapter(@NonNull FragmentActivity fragmentActivity) {
 
         super(fragmentActivity);
+    }
+
+    public static ViewPagerKeyboardAdapter getInstance(FragmentActivity fragmentActivity) {
+        if (instance != null) {
+            return instance;
+        }
+
+        return instance = new ViewPagerKeyboardAdapter(fragmentActivity);
     }
 
     public void addOnButtonClickListener(OnButtonClickListener onButtonClickListener) {

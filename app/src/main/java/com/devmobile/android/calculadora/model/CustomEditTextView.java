@@ -7,17 +7,16 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import com.devmobile.android.calculadora.DecimalMaskNumber;
 import com.devmobile.android.calculadora.R;
 import com.singularsys.jep.JepException;
+import java.io.Serializable;
 
-public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText {
+public class CustomEditTextView extends androidx.appcompat.widget.AppCompatEditText
+        implements Serializable {
     protected TextView textView;
     protected EditText customEditTextView;
-    protected String result = "";
     protected String inputWithMask = "";
 
     public CustomEditTextView(Context context, AttributeSet attrs) {
