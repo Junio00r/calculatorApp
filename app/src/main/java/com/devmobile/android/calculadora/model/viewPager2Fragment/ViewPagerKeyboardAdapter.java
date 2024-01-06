@@ -19,8 +19,8 @@ public class ViewPagerKeyboardAdapter
 
     private OnButtonClickListener onButtonClickListener;
     private final List<Fragment> keyboardsFragments = new ArrayList<>();
-    private final DefaultKeyboard defaultKeyboard = new DefaultKeyboard();
-    private final ExpensiveKeyboard expensiveKeyboard = new ExpensiveKeyboard();
+    private final DefaultKeyboard defaultKeyboard = DefaultKeyboard.getInstance();
+    private final ExpensiveKeyboard expensiveKeyboard = ExpensiveKeyboard.getInstance();
     private static ViewPagerKeyboardAdapter instance;
 
     private ViewPagerKeyboardAdapter(@NonNull FragmentActivity fragmentActivity) {

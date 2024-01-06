@@ -41,6 +41,17 @@ public class DefaultKeyboard extends Fragment
     private Button buttonSeven;
     private Button buttonEight;
     private Button buttonNine;
+    private static DefaultKeyboard instance;
+    private DefaultKeyboard() { }
+
+    public static DefaultKeyboard getInstance() {
+
+        if (instance != null) {
+            return instance;
+        }
+
+        return instance = new DefaultKeyboard();
+    }
 
     @Nullable
     @Override
@@ -78,7 +89,6 @@ public class DefaultKeyboard extends Fragment
 
     }
 
-
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
@@ -90,6 +100,7 @@ public class DefaultKeyboard extends Fragment
     }
 
     public void initReferences(@NonNull View v) {
+
         buttonPercent = v.findViewById(R.id.buttonPercent);
         buttonOpenParenthesis = v.findViewById(R.id.buttonOpenParenthesis);
         buttonCloseParenthesis = v.findViewById(R.id.buttonCloseParenthesis);

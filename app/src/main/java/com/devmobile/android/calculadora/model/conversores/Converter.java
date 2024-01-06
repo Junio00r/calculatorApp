@@ -1,17 +1,17 @@
 package com.devmobile.android.calculadora.model.conversores;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Converter {
+public abstract class Converter implements Serializable {
     protected final ArrayList<HashMap<String, String>> typesToConverter = new ArrayList<>();
     protected String firstSpinnerItemSelected;
     protected String secondSpinnerItemSelected;
     protected Integer idItemFirstSpinner;
     protected Integer idItemSecondSpinner;
-    protected String dataInsert;
 
     public Converter() {
 

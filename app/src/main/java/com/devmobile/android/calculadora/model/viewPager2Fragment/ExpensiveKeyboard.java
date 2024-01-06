@@ -51,6 +51,17 @@ public class ExpensiveKeyboard
     private Button buttonSevenExp;
     private Button buttonEightExp;
     private Button buttonNineExp;
+    private static ExpensiveKeyboard instance;
+    private ExpensiveKeyboard() { }
+
+    public static ExpensiveKeyboard getInstance() {
+
+        if (instance != null) {
+            return instance;
+        }
+
+        return instance = new ExpensiveKeyboard();
+    }
 
     @Nullable
     @Override

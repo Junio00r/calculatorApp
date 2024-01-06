@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.devmobile.android.calculadora.model.BackgroundButtonView;
 import com.devmobile.android.calculadora.model.CustomEditTextView;
 import com.devmobile.android.calculadora.model.interfaces.OnButtonClickListener;
@@ -61,16 +63,16 @@ public class MainActivity extends AppCompatActivity
     private int buttonUpExp;
     private int buttonClearAllExp;
     private static int layoutId = R.layout.activity_main;
-    private static final Bundle bundle = new Bundle();
+    private static Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
         // Inflating all layouts in activity_main.xml
         if (savedInstanceState != null) {
+            bundle = savedInstanceState;
             layoutId = savedInstanceState.getInt("layoutId", layoutId);
             setContentView(layoutId);
             initReferences();
@@ -93,14 +95,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-        outState.putInt("layoutId", layoutId);
-        outState.putString("custom_editText_text", customEditTextView.getText().toString());
+        if (!outState.isEmpty()) {
+            super.onSaveInstanceState(outState);
+
+            outState.putInt("layoutId", layoutId);
+            outState.putString("custom_editText_text", customEditTextView.getText().toString());
+        }
     }
 
     private void acessMenu() {
-
         String expressionInEditText = customEditTextView.getText().toString();
         bundle.putString("editTextValue", expressionInEditText);
         onSaveInstanceState(bundle);
@@ -177,19 +181,19 @@ public class MainActivity extends AppCompatActivity
     public void onClick(@NonNull View viewButton) {
 
 //        if (isAlternativeFunction(viewButton.getId())) {
-            if (buttonBackSpace == viewButton.getId() || buttonBackSpaceExp == viewButton.getId()) {
-                excludeCharacter();
-            } else if (buttonEquals == viewButton.getId() || buttonEqualsExp == viewButton.getId()) {
-                equalsResult();
-            } else if (buttonClearAll == viewButton.getId() || buttonClearAllExp == viewButton.getId()) {
-                expressionClear();
-            } else if (buttonUp == viewButton.getId() || buttonUpExp == viewButton.getId()) {
-                upExpression();
-            } else if (buttonDown == viewButton.getId() || buttonDownExp == viewButton.getId()) {
-                downExpression();
-            } else if (buttonMenu == viewButton.getId() || buttonMenu == viewButton.getId()){
-                acessMenu();
-            } else {
+        if (buttonBackSpace == viewButton.getId() || buttonBackSpaceExp == viewButton.getId()) {
+            excludeCharacter();
+        } else if (buttonEquals == viewButton.getId() || buttonEqualsExp == viewButton.getId()) {
+            equalsResult();
+        } else if (buttonClearAll == viewButton.getId() || buttonClearAllExp == viewButton.getId()) {
+            expressionClear();
+        } else if (buttonUp == viewButton.getId() || buttonUpExp == viewButton.getId()) {
+            upExpression();
+        } else if (buttonDown == viewButton.getId() || buttonDownExp == viewButton.getId()) {
+            downExpression();
+        } else if (buttonMenu == viewButton.getId() || buttonMenu == viewButton.getId()) {
+            acessMenu();
+        } else {
 //        } else {
             insertTextInEditText(viewButton.getContentDescription().toString());
         }
@@ -247,7 +251,6 @@ public class MainActivity extends AppCompatActivity
 //
 //        alternativeButtonsHash.addAll(Arrays.asList(buttonsAlternatives));
 //    }
-
     private void upExpression() {
 
         if (recyclerView.getChildCount() > 0) {
@@ -380,7 +383,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     // Getters
-    public int  getTextViewId() {
+    public int getTextViewId() {
         return textView.getId();
     }
 

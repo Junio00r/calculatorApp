@@ -23,6 +23,7 @@ import com.devmobile.android.calculadora.model.spinner.CustomSpinnerAdapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class ActivityConverters extends Activity
         implements View.OnClickListener
@@ -48,11 +49,11 @@ public class ActivityConverters extends Activity
     private Button buttonSeparator;
     private ImageButton buttonBackspace;
     private ImageButton buttonMenu;
-    private final String[] from = {"abbreviation", "name"};
-    private final int[] to = {R.id.icon_item_text_view, R.id.description_item_text_view};
-    private static ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
-    private static Converter converter;
+    private String[] from = {"abbreviation", "name"};
+    private int[] to = {R.id.icon_item_text_view, R.id.description_item_text_view};
+    private ArrayList<HashMap<String, String>> spinnerItems = new ArrayList<>();
     private int cursorPosition = 0;
+    private static Converter converter;
     private static int layoutConverterId = R.layout.base_converter;
 
     @Override
@@ -63,6 +64,7 @@ public class ActivityConverters extends Activity
             layoutConverterId = savedInstanceState.getInt("layoutConverterId");
             setContentView(layoutConverterId);
             initReferences();
+            converter = (Converter) savedInstanceState.getSerializable("converter");
             mCustomEditTextConverter.setText(savedInstanceState.getString("custom_editText_text"));
         } else {
 
@@ -72,10 +74,24 @@ public class ActivityConverters extends Activity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        converter = null;
+        mTextView = null;
+        mCustomEditTextConverter = null;
+        mSpinner1 = null;
+        mSpinner2 = null;
+        from = null;
+
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("layoutId", layoutConverterId);
+        outState.putInt("layoutConverterId", layoutConverterId);
+        outState.putSerializable("converter", converter);
         outState.putString("custom_editText_text", mCustomEditTextConverter.getText().toString());
     }
 
@@ -131,7 +147,7 @@ public class ActivityConverters extends Activity
                 , buttonSeparator, buttonBackspace, buttonClearAll, buttonMenu
         };
 
-        for (View e : buttons) e.setOnClickListener(this);
+        Stream.of(buttons).forEach(button -> button.setOnClickListener(this));
     }
 
     @Override
